@@ -8,9 +8,9 @@ module.exports = router
 router.use(express.json()); 
 
 //post to openAI engine davinci-003 (chatgpt 3.5 turbo)
-router.post('/api/reformat-menu', async(req, res) =>{
+router.post('/reformat-menu', async(req, res) =>{
   const openaiApiKey = process.env.API_KEY_OPENAPI;
-
+ 
     const prompt = req.body.prompt;
 
     try {
