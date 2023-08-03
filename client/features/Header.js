@@ -8,7 +8,7 @@ function Header() {
   );
 }
 
-// You can customize these styles
+
 const headerStyle = {
   background: '#333',
   color: '#fff',
