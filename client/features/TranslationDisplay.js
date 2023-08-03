@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import ImageUpload from './ImageUpload';
 
-function TranslationDisplay(props) {
+function TranslationDisplay({ result }) {
   const [menu, setMenu] = useState('');
-  const [text, setText] = useState('');
+  const [text, setText] = useState({ result });
 
-  const handleImageSelect = async(file, language) =>{
-    const formData = new FormData();
-  }
+  useEffect(() => {
+    setText(result);
+  }, [result]); 
 
   const handleSubmit = async () => {
     try {
@@ -22,13 +21,8 @@ function TranslationDisplay(props) {
 
   return (
     <div>
-      <textarea
-        value={text}
-        onChange={handleTextChange}
-        placeholder="Enter menu text..."
-      />
       <button onClick={handleSubmit}>Reformat Menu</button>
-      <div>{menu}</div>
+      <div>{menu !== null? menu : 'Upload then press Reformat Menu to translate your menu.' }</div>
     </div>
   );
 }
