@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "manifest-pride-394616",
+  "private_key_id": "7218f04e1ebc0a4871d83ab8dbe93412c647c547",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCiCWK3V4o2Lm6u\n/2jQvrgUfci9wek7ZivQUmxxaG1+SfWCbnxWRSmo8gf/nTLr0UwbhrTlvVnrDtH5\nNC8OPoweleWE8SSJgj9T+ZCxmswzVJKWhaQUJfLMJyO3HYJKG9eaKXES2jgCCwho\nAr/QUBnedF7zU3MHcMK5T3Ic9FPRGD41ooP7Zm1hL82IOSa18qPSryJBQhOzeAHF\nQ+RamZTu93PKBcX7lpqDnxhmI1M3JOuCendLRII1iaG2MXptwQGbiI/m3uADY+KM\nOBaKmdWG34cx7pq0K/e+MdbG6D7ffJuc9CT4tqBmZktLQQZIdTzxzsBAsH4Lt15r\nOvS20C1fAgMBAAECggEADtihTNRz0Lxhs8hUXYaRQyoLMdJfK5a+6PAZs4JdQIxH\njFMnMphVACpnhTTCrPdDlo9kalr2WXfFe/nGCJ4TzzGYvUeC5iki4u94zG0Md0ox\nFs2D17y/tD4vIuCh8Wb/qBun7+btPsgCqypP/NF6AqHS7qR0uPfMlOysiJlHnLQL\nLHfeY+Y517umGiRitDpkLQ2W43rnJfsKoBytDeckSxbwAHXu6QWcTC3NY1KB605Z\nfIAPjmR1da4HFSF17dFfGNIVifrhZFynoVbd/CwnL1Q02AOIOMA4v7/44Yx5L2Ji\nyPIk6zgMCAyeYwIhbUz7qEiBHjsW9NyXJ3KQBdvYYQKBgQDbh7owEyyM0ZCGO6VD\nK7hguvNmc7DItHbObpE+HakIvc9s3ScqMz0qew7On5MpgqSE62+EtO7BAjCaQA/m\nzQf8m/o4wsqjOTpyvYNShr/XXp7u1w5iCoBcIIeB4ewr7dXK26Jkj3o3AXMf8CWl\nBaJb73R9CGdUlXenlbK2uD2raQKBgQC89IyoVNR6L324AKtUYP82LynQ2MZb7TRH\nL2QgJSuSjHtQl9xyYywMOSIVtv39oUbPzTwsNVt5UIfsA09nt7fCJAdDGbcnFDM2\n4LRlhfaOZO55w15oDyXJ1PHJcky0jzcF7vRVSTg8tdcu5WqaVDNjhwVrQ5bKIq2Y\nIujt2phhhwKBgFU/MmzCtVUFd9K4TKd1zcY6MpRBLo/xjAUDaIEvcVlEo8yJYFEB\nzqm1WX2g97tx0MMQzaBBxkjKuebcI5CjY4uTYioycg/KBElUEC+2xb4zLxJeDmbB\n3zBnLVehTF2OoKuCeGAGWxYLCRKI5YVcV7zNknWPEtkEpY89EUXk64WpAoGAbMD0\nFA5/HLQoz7bS5YXOXglXL/UUdeRYqoAESNwb8AUbFI/TOaMKvx5DF+xy03/3mbKu\nZ2Nueqx3Dsf48+ExynOiGmS6natqrrM2IRixh9NfzoU72Pie70O4xhEbRPEI4kle\nJ5g03fxrFXrFmH3N9gLIg6wrJbw/3ch5+CxQeBECgYAMo0pb+9W+yKcNCTYbgOQh\nhESyqQKcKC5kZlGD825CYw9qT8Sp5fLqZyg4e6U9gURRXHCnJcBS4ie7IcK52jjT\n09DVACTVQMrJaWVxr95HXYI3MafZ0Io4xt+4/h8MMk8j9Bx7Ls0HPRXxHQrY5gYX\nfub2qSVh6oG1cPExN06JOA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "schoolproject@manifest-pride-394616.iam.gserviceaccount.com",
+  "client_id": "113905742466191758143",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/schoolproject%40manifest-pride-394616.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
