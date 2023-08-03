@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Header from './features/Header';
 import ImageUpload from './features/ImageUpload';
 import TranslationDisplay from './features/TranslationDisplay';
@@ -12,29 +12,30 @@ const App = () => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-     // handle response
-    console.log(response.data);
+      const response = await axios.post(
+        'http://localhost:8080/api/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      // handle response
+      console.log(response.data);
 
-    setOcrResults(response.data)
-
-    } catch (error){
-      console.error(error)
+      setOcrResults(response.data);
+    } catch (error) {
+      console.error(error);
     }
-
-  }
-
+  };
 
   return (
     <div>
       <Header />
       <div>
-        <ImageUpload onFileSelect={sendImageToServer}/>
-        <TranslationDisplay result={ocrResults}/>
+        <ImageUpload onFileSelect={sendImageToServer} />
+        <TranslationDisplay result={ocrResults} />
       </div>
     </div>
   );
