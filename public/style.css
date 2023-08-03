@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: rgb(82, 82, 82);
 }
 
 a {
@@ -18,4 +19,8 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+img {
+  width: 600px;
 }
