@@ -8,7 +8,6 @@ const { Translate } = require('@google-cloud/translate').v2;
 const visionClient = new vision.ImageAnnotatorClient({
   keyFilename: 'key.json',
 });
-
 const translateClient = new Translate({
   keyFilename: 'key.json', // Your Google Cloud Translate API key file
 });
@@ -27,6 +26,48 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
+
+// processImageAndTranslate(imageFilePath, targetLanguage);
+const imageFilePath = './How_to_order_food_in_Spanish.png'; // need to make this the up loaded photo
+const processImage = async (imageFilePath) => {
+  try {
+    // get the extracted text
+    const [result] = await visionClient.textDetection(imageFilePath);
+    const text = result.fullTextAnnotation.text;
+
+    return text;
+  } catch (err) {
+    console.error('Error occurred:', err);
+  }
+};
+
+const targetLanguage = 'en'; // need a drop down menu for all languages we need
+const translateText = async (text, targetLanguage) => {
+  try {
+    const [translations] = await translateClient.translate(
+      text,
+      targetLanguage
+    );
+    const translatedText = Array.isArray(translations)
+      ? translations[0]
+      : translations;
+    return translatedText;
+  } catch (err) {
+    console.error('Error occurred:', err);
+    return null;
+  }
+};
+
+const imageDone = async (imageFilePath, targetLanguage) => {
+  const eText = await processImage(imageFilePath);
+  if (eText) {
+    const tText = await translateText(eText, targetLanguage);
+    console.log('spanish', eText);
+    console.log('------------------------------eng', tText);
+  }
+};
+
+imageDone(imageFilePath, targetLanguage);
 
 // OCR
 // const processImageAndTranslate = async (imageFilePath, targetLanguage) => {
@@ -61,42 +102,3 @@ router.post('/', async (req, res, next) => {
 //     return null;
 //   }
 // };
-
-// function process the image and translate it
-
-const imageFilePath = './How_to_order_food_in_Spanish.png'; // need to make this the up loaded photo
-const targetLanguage = 'en'; // need a drop down menu for all languages we need
-
-// processImageAndTranslate(imageFilePath, targetLanguage);
-
-const processImage = async (imageFilePath) => {
-  try {
-    // get the extracted text
-    const [result] = await visionClient.textDetection(imageFilePath);
-    const text = result.fullTextAnnotation.text;
-
-    return text;
-  } catch (err) {
-    console.error('Error occurred:', err);
-  }
-};
-
-processImage(imageFilePath);
-
-const translateText = async (text, targetLanguage) => {
-  try {
-    const [translations] = await translateClient.translate(
-      text,
-      targetLanguage
-    );
-    const translatedText = Array.isArray(translations)
-      ? translations[0]
-      : translations;
-    return translatedText;
-  } catch (err) {
-    console.error('Error occurred:', err);
-    return null;
-  }
-};
-
-async () => {};
