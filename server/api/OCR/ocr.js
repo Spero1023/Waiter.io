@@ -9,39 +9,41 @@ const visionClient = new vision.ImageAnnotatorClient({
   keyFilename: 'key.json',
 });
 const translateClient = new Translate({
-  keyFilename: 'key.json', // Your Google Cloud Translate API key file
+  keyFilename: 'key.json',
 });
 
 //  /api/ocr
 router.post('/', async (req, res, next) => {
   try {
-    const visionClient = new vision.ImageAnnotatorClient({
-      keyFilename: 'key.json',
-    });
-    // google cloud translate API
-    const translateClient = new Translate({
-      keyFilename: 'key.json', // Your Google Cloud Translate API key file
-    });
+    const imageFilePath = req.file.path;
+    const targetLanguage = req.body.targetLanguage || 'en';
+
+    const extractedText = await processImage(imageFilePath);
+    if (extractedText) {
+      const translatedText = await translateText(extractedText, targetLanguage);
+      console.log('Spanish:', extractedText);
+      console.log('Translated:', translatedText);
+
+      res.json({ originalText: extractedText, translatedText });
+    } else {
+      res.status(400).json({ error: 'Text extraction failed.' });
+    }
   } catch (err) {
     next(err);
   }
 });
 
-// processImageAndTranslate(imageFilePath, targetLanguage);
-const imageFilePath = './How_to_order_food_in_Spanish.png'; // need to make this the up loaded photo
 const processImage = async (imageFilePath) => {
   try {
-    // get the extracted text
     const [result] = await visionClient.textDetection(imageFilePath);
     const text = result.fullTextAnnotation.text;
-
     return text;
   } catch (err) {
     console.error('Error occurred:', err);
+    return null;
   }
 };
 
-const targetLanguage = 'en'; // need a drop down menu for all languages we need
 const translateText = async (text, targetLanguage) => {
   try {
     const [translations] = await translateClient.translate(
@@ -57,17 +59,6 @@ const translateText = async (text, targetLanguage) => {
     return null;
   }
 };
-
-const imageDone = async (imageFilePath, targetLanguage) => {
-  const eText = await processImage(imageFilePath);
-  if (eText) {
-    const tText = await translateText(eText, targetLanguage);
-    console.log('spanish', eText);
-    console.log('------------------------------eng', tText);
-  }
-};
-
-imageDone(imageFilePath, targetLanguage);
 
 // OCR
 // const processImageAndTranslate = async (imageFilePath, targetLanguage) => {
