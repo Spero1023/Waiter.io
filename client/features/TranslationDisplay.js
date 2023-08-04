@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+const parse = require('html-react-parser');
 
-const apiKey = 'ADDYOURKEYHERE!!!!';
+const apiKey = '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';
 
 function TranslationDisplay({ result, targetLanguage }) {
-  const [menu, setMenu] = useState(null);
+  const [menu, setMenu] = useState('');
   const [text, setText] = useState(result);
 
   useEffect(() => {
     setText(result);
   }, [result]);
 
-
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions of foreign/non-American cuisine in`;
+  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions of foreign/non-American cuisine in
+  return each section inside of a div
+  `;
 
   const handleSubmit = async () => {
     try {
@@ -33,8 +35,7 @@ function TranslationDisplay({ result, targetLanguage }) {
       const generatedText = response.data.choices[0].text;
       console.log(generatedText);
 
-      setMenu(generatedText);
-
+      setMenu(parse(generatedText));
     } catch (error) {
       console.error('Error calling /api/reformat-menu', error);
     }
@@ -43,18 +44,13 @@ function TranslationDisplay({ result, targetLanguage }) {
   return (
     <div>
       <button onClick={handleSubmit}>Reformat Menu</button>
-
       <div>
-        {menu !== null
+        {menu !== ''
           ? menu
           : 'Upload then press Reformat Menu to translate your menu.'}
       </div>
-=======
-      <div>{menu !== null ? menu : 'Upload then press Reformat Menu to translate your menu.'}</div>
-
     </div>
   );
 }
 
 export default TranslationDisplay;
-
