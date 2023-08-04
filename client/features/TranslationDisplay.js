@@ -49,12 +49,6 @@ function TranslationDisplay({ result, targetLanguage }) {
           ? menu
           : 'Upload then press Reformat Menu to translate your menu.'}
       </div>
-      =======
-      <div>
-        {menu !== ''
-          ? menu
-          : 'Upload then press Reformat Menu to translate your menu.'}
-      </div>
     </div>
   );
 }
