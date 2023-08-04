@@ -1,34 +1,34 @@
-const axios = require('axios');
 const express = require('express');
-const router = require('express').Router()
+const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config();
-module.exports = router
 
-//body-parsing middleware
-router.use(express.json()); 
+const app = express();
+app.use(express.json());
+
+const configuration = new Configuration({
+  apiKey: process.env.API_KEY_OPENAI,
+});
+const openai = new OpenAIApi(configuration);
 
 //post to openAI engine davinci-003 (chatgpt 3.5 turbo)
-router.post('/reformat-menu', async(req, res) =>{
-  const openaiApiKey = process.env.API_KEY_OPENAPI;
- 
-    const prompt = req.body.prompt;
+app.post('/api/reformat-menu', async (req, res) => {
+  const prompt = req.body.prompt;
 
-    try {
-        const openaiResponse = await axios.post('https://api.openai.com/v1/engines/davinci-003/completions', {
-        //prompt goes here
-        prompt: prompt,
-          max_tokens: 150
-        }, {
-            //need to insert openapi key into bearer
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openaiApiKey}`
-          }
-        });
-        const reformattedMenu = openaiResponse.data.choices[0].text;
-        res.json({ reformattedMenu });
-}catch(error){
-    console.error('Error calling OpenAPI', error);
-    res.status(500).json({ error: "Failed to reformat"})
-}
+  try {
+    if (prompt == null) {
+      throw new Error('Uh oh, no prompt was provided');
+    }
+    const response = await openai.createCompletion({
+      model: 'text-davinci-003',
+      prompt,
+    });
+    const completion = response.data.choices[0].text;
+    return res.status(200).json({
+      success: true,
+      message: completion,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Failed to reformat' });
+  }
 });
