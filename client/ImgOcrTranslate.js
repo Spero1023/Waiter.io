@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import TranslationDisplay from './features/TranslationDisplay';
+
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -146,6 +148,7 @@ const ImageUploadForm = () => {
           <option value='it'>italian</option>
         </select>
         <button type='submit'>Submit</button>
+        <TranslationDisplay />
       </form>
       {error && <p>Error: {error}</p>}
       <div>

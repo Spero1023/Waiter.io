@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const apiKey = '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';
+const apiKey = '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';
 
 async function generateText() {
   try {
     const response = await axios.post(
       `https://api.openai.com/v1/engines/text-davinci-003/completions`,
       {
-        prompt: 'what is a nissan s14 silvia?',
+        prompt: `turn this into a menu ${transledText}`,
         max_tokens: 512,
         temperature: 0,
       },
