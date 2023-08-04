@@ -11,6 +11,7 @@ function TranslationDisplay({ result, targetLanguage }) {
     setText(result);
   }, [result]);
 
+
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions of foreign/non-American cuisine in`;
 
   const handleSubmit = async () => {
@@ -33,6 +34,7 @@ function TranslationDisplay({ result, targetLanguage }) {
       console.log(generatedText);
 
       setMenu(generatedText);
+
     } catch (error) {
       console.error('Error calling /api/reformat-menu', error);
     }
@@ -41,13 +43,18 @@ function TranslationDisplay({ result, targetLanguage }) {
   return (
     <div>
       <button onClick={handleSubmit}>Reformat Menu</button>
+
       <div>
         {menu !== null
           ? menu
           : 'Upload then press Reformat Menu to translate your menu.'}
       </div>
+=======
+      <div>{menu !== null ? menu : 'Upload then press Reformat Menu to translate your menu.'}</div>
+
     </div>
   );
 }
 
 export default TranslationDisplay;
+
