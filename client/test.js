@@ -56,6 +56,7 @@ const handleTranslate = async (
 
 const ImageUploadForm = () => {
   const [imageFile, setImageFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [targetLanguage, setTargetLanguage] = useState('en');
   const [detectedText, setDetectedText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
@@ -64,6 +65,7 @@ const ImageUploadForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
+    setImageUrl(URL.createObjectURL(file));
   };
 
   const handleLanguageChange = (event) => {
@@ -96,6 +98,7 @@ const ImageUploadForm = () => {
         },
       ],
     };
+
     try {
       const response = await fetch(
         'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ',
@@ -126,6 +129,7 @@ const ImageUploadForm = () => {
   useEffect(() => {
     handleTranslate(detectedText, targetLanguage, setTranslatedText, setError);
   }, [detectedText, targetLanguage]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -137,6 +141,9 @@ const ImageUploadForm = () => {
         />
         <select value={targetLanguage} onChange={handleLanguageChange} required>
           <option value='en'>English</option>
+          <option value='fr'>french</option>
+          <option value='da'>danish</option>
+          <option value='it'>italian</option>
         </select>
         <button type='submit'>Submit</button>
       </form>
@@ -149,6 +156,9 @@ const ImageUploadForm = () => {
           <strong>Translated Text:</strong> {translatedText}
         </p>
       </div>
+      {imageUrl && (
+        <img src={imageUrl} alt='Uploaded' style={{ maxWidth: '500px' }} />
+      )}
     </div>
   );
 };
