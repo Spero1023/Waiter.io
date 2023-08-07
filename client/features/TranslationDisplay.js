@@ -2,26 +2,40 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
 
-const apiKey = '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';
+const apiKey = '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';
 
-function TranslationDisplay({ result, targetLanguage }) {
+function TranslationDisplay({
+  translatedText,
+  targetLanguage,
+  onLanguageChange,
+}) {
   const [menu, setMenu] = useState('');
-  const [text, setText] = useState(result);
+  const [text, setText] = useState(translatedText);
+
+  console.log(onLanguageChange);
 
   useEffect(() => {
-    setText(result);
-  }, [result]);
+    setText(translatedText);
+  }, [translatedText, targetLanguage, onLanguageChange]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions of foreign/non-American cuisine in
-  return each section inside of a div
+  useEffect(() => {
+    handleSubmit();
+  }, [targetLanguage, translatedText]);
+
+  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions and in:
+  return each section inside of a div 
   `;
+  console.log('132123', translatedText);
 
   const handleSubmit = async () => {
+    if (translatedText === '') {
+      return console.log('this is the text', translatedText);
+    }
     try {
       const response = await axios.post(
         `https://api.openai.com/v1/engines/text-davinci-003/completions`,
         {
-          prompt: `${prompt}`,
+          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
           max_tokens: 512,
           temperature: 0,
         },
@@ -33,7 +47,6 @@ function TranslationDisplay({ result, targetLanguage }) {
         }
       );
       const generatedText = response.data.choices[0].text;
-      console.log(generatedText);
 
       setMenu(parse(generatedText));
     } catch (error) {
@@ -54,3 +67,8 @@ function TranslationDisplay({ result, targetLanguage }) {
 }
 
 export default TranslationDisplay;
+
+//need to make the prompt to be our translatedText From ImgOcrTranslate
+//need to learn how to prop drill to obatain the child for Trtansleted text
+//work on prompt to make it cleaner
+//need to make another api key cause im an asshole!
