@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
 
-const apiKey = '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';
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
@@ -19,11 +19,12 @@ function TranslationDisplay({
   }, [translatedText, targetLanguage, onLanguageChange]);
 
   useEffect(() => {
-    handleSubmit();
-  }, [targetLanguage, translatedText]);
+    handleSubmit(targetLanguage);
+  }, [translatedText]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions and in:
-  return each section inside of a div 
+  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
+  Return each section inside of a div.
+  
   `;
   console.log('132123', translatedText);
 
