@@ -148,15 +148,19 @@ const ImageUploadForm = () => {
           <option value='it'>italian</option>
         </select>
         <button type='submit'>Submit</button>
-        <TranslationDisplay />
       </form>
       {error && <p>Error: {error}</p>}
       <div>
         <p>
           <strong>Detected Text:</strong> {detectedText}
         </p>
+        <strong>trans Text:</strong> {translatedText}
         <p>
-          <strong>Translated Text:</strong> {translatedText}
+          <TranslationDisplay
+            translatedText={translatedText}
+            targetLanguage={targetLanguage}
+            onLanguageChange={handleLanguageChange}
+          />
         </p>
       </div>
       {imageUrl && (
