@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
 
-const apiKey = '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';
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
   targetLanguage,
+  detectedText,
   onLanguageChange,
 }) {
   const [menu, setMenu] = useState('');
@@ -22,7 +23,10 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
+  const prompt = `
+  No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
+  If you recive a price i want you to take that currency and then do the conversion to the respective language you are displaying
+  Example - (number) yuan will become $(number)
   Return each section inside of a div.`;
 
   const handleSubmit = async () => {
@@ -63,12 +67,14 @@ function TranslationDisplay({
   };
 
   return (
-    <div>
-      <div>
+    <div className='translator-container'>
+      <div className='menu-container'>
         {isLoading ? (
-          <div>Menu Loading Below, Please Wait.</div>
+          <div className='loading-message'>
+            Menu Loading Below, Please Wait.
+          </div>
         ) : (
-          <div>
+          <div className='menu-content'>
             {menu !== ''
               ? menu
               : 'Upload image then press submit to translate your menu.'}
