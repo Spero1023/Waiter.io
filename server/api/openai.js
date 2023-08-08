@@ -2,15 +2,16 @@
 const express = require('express');
 const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config();
+import accessSecret from './secretManager';
 
 const app = express();
 app.use(express.json());
 
 const configuration = new Configuration({
-  apiKey: process.env.API_KEY_OPENAI,
+  apiKey: accessSecret(Openai),
 });
 const openai = new OpenAIApi(configuration);
-
+ 
 //post to openAI engine davinci-003 (chatgpt 3.5 turbo)
 app.post('/api/reformat-menu', async (req, res) => {
   const prompt = req.body.prompt;
