@@ -2,6 +2,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import React, { useState, useEffect } from 'react';
 import TranslationDisplay from './features/TranslationDisplay';
+import accessSecret from '../server/api/secretManager';
 
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -27,7 +28,7 @@ const handleTranslate = async (
     setError('No text to translate.');
     return;
   }
-
+//api
   try {
     const translateResponse = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ`,
@@ -102,7 +103,7 @@ const ImageUploadForm = () => {
         },
       ],
     };
-
+//api
     try {
       const response = await fetch(
         'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ',
