@@ -6,7 +6,7 @@ import accessSecret from './secretManager';
 
 const app = express();
 app.use(express.json());
-
+//make sure Openai is case sensitive
 const configuration = new Configuration({
   apiKey: accessSecret(Openai),
 });
