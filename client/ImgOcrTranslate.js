@@ -1,3 +1,4 @@
+import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 
 import TranslationDisplay from './features/TranslationDisplay';
@@ -76,6 +77,7 @@ const ImageUploadForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    toast.success('image Submitted');
     setError('');
 
     if (!imageFile) {
@@ -133,39 +135,43 @@ const ImageUploadForm = () => {
   }, [detectedText, targetLanguage]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='form-container'>
+      <div className='logo'>
+        <img className='icon' src='favicon.ico'></img>
+        Waiter.io
+      </div>
+      <form className='translator-form' onSubmit={handleSubmit}>
         <input
           type='file'
           accept='image/*'
           onChange={handleFileChange}
           required
         />
-        <select value={targetLanguage} onChange={handleLanguageChange} required>
+        <select
+          className='language-select'
+          value={targetLanguage}
+          onChange={handleLanguageChange}
+          required
+        >
           <option value='en'>English</option>
-          <option value='fr'>french</option>
-          <option value='da'>danish</option>
-          <option value='it'>italian</option>
+          <option value='fr'>French</option>
+          <option value='da'>Danish</option>
+          <option value='it'>Italian</option>
         </select>
-        <button type='submit'>Submit</button>
+        <button className='submit-button' type='submit'>
+          Submit
+        </button>
       </form>
-      {error && <p>Error: {error}</p>}
-      <div>
-        <p>
-          <strong>Detected Text:</strong> {detectedText}
-        </p>
-        <strong>trans Text:</strong> {translatedText}
-        <p>
-          <TranslationDisplay
-            translatedText={translatedText}
-            targetLanguage={targetLanguage}
-            onLanguageChange={handleLanguageChange}
-          />
-        </p>
-      </div>
       {imageUrl && (
-        <img src={imageUrl} alt='Uploaded' style={{ maxWidth: '500px' }} />
+        <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
       )}
+      <TranslationDisplay
+        translatedText={translatedText}
+        targetLanguage={targetLanguage}
+        detectedText={detectedText}
+        onLanguageChange={handleLanguageChange}
+      />
+      <Toaster />
     </div>
   );
 };

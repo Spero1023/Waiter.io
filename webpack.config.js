@@ -1,7 +1,9 @@
+const path = require('path');
+
 module.exports = {
   entry: ['./client/index.js'],
   output: {
-    path: __dirname + '/public',
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
   context: __dirname,
@@ -15,6 +17,10 @@ module.exports = {
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
