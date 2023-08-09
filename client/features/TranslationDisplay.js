@@ -1,10 +1,8 @@
-import toast, { Toaster } from 'react-hot-toast';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
-import accessSecret from '../../server/api/secretManager';
-//case sensitive for Openai
-const apiKey = accessSecret(Openai);
+
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
@@ -13,7 +11,8 @@ function TranslationDisplay({
 }) {
   const [menu, setMenu] = useState('');
   const [text, setText] = useState(translatedText);
-  const [isLoading, setIsLoading] = useState(false);
+
+  console.log(onLanguageChange);
 
   useEffect(() => {
     setText(translatedText);
@@ -24,22 +23,21 @@ function TranslationDisplay({
   }, [translatedText]);
 
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div.`;
+  Return each section inside of a div.
+  
+  `;
+  console.log('132123', translatedText);
 
   const handleSubmit = async () => {
     if (translatedText === '') {
-      return;
+      return console.log('this is the text', translatedText);
     }
     try {
-      setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
-        id: toastId,
-      });
       const response = await axios.post(
         `https://api.openai.com/v1/engines/text-davinci-003/completions`,
         {
           prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
-          max_tokens: 700,
+          max_tokens: 512,
           temperature: 0,
         },
         {
@@ -49,36 +47,29 @@ function TranslationDisplay({
           },
         }
       );
-
       const generatedText = response.data.choices[0].text;
+
       setMenu(parse(generatedText));
-      setIsLoading(false);
-      toast.success('This worked', {
-        id: toastId,
-      });
     } catch (error) {
       console.error('Error calling /api/reformat-menu', error);
-      setIsLoading(false);
-      toast.error('An error occurred. Please try again.');
     }
   };
 
   return (
     <div>
+      <button onClick={handleSubmit}>Reformat Menu</button>
       <div>
-        {isLoading ? (
-          <div>Menu Loading Below, Please Wait.</div>
-        ) : (
-          <div>
-            {menu !== ''
-              ? menu
-              : 'Upload image then press submit to translate your menu.'}
-          </div>
-        )}
+        {menu !== ''
+          ? menu
+          : 'Upload then press Reformat Menu to translate your menu.'}
       </div>
-      <Toaster />
     </div>
   );
 }
 
 export default TranslationDisplay;
+
+//need to make the prompt to be our translatedText From ImgOcrTranslate
+//need to learn how to prop drill to obatain the child for Trtansleted text
+//work on prompt to make it cleaner
+//need to make another api key cause im an asshole!

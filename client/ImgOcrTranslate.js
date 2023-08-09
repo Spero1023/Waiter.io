@@ -1,8 +1,6 @@
-import toast, { Toaster } from 'react-hot-toast';
-
 import React, { useState, useEffect } from 'react';
+
 import TranslationDisplay from './features/TranslationDisplay';
-import accessSecret from '../server/api/secretManager';
 
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -28,7 +26,7 @@ const handleTranslate = async (
     setError('No text to translate.');
     return;
   }
-//api
+
   try {
     const translateResponse = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ`,
@@ -70,7 +68,6 @@ const ImageUploadForm = () => {
     const file = event.target.files[0];
     setImageFile(file);
     setImageUrl(URL.createObjectURL(file));
-    toast.success('Image Added');
   };
 
   const handleLanguageChange = (event) => {
@@ -103,7 +100,7 @@ const ImageUploadForm = () => {
         },
       ],
     };
-//api
+
     try {
       const response = await fetch(
         'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ',
@@ -137,7 +134,6 @@ const ImageUploadForm = () => {
 
   return (
     <div>
-      <Toaster />
       <form onSubmit={handleSubmit}>
         <input
           type='file'
@@ -153,20 +149,23 @@ const ImageUploadForm = () => {
         </select>
         <button type='submit'>Submit</button>
       </form>
+      {error && <p>Error: {error}</p>}
       <div>
         <p>
           <strong>Detected Text:</strong> {detectedText}
         </p>
         <strong>trans Text:</strong> {translatedText}
+        <p>
+          <TranslationDisplay
+            translatedText={translatedText}
+            targetLanguage={targetLanguage}
+            onLanguageChange={handleLanguageChange}
+          />
+        </p>
       </div>
       {imageUrl && (
         <img src={imageUrl} alt='Uploaded' style={{ maxWidth: '500px' }} />
       )}
-      <TranslationDisplay
-        translatedText={translatedText}
-        targetLanguage={targetLanguage}
-        onLanguageChange={handleLanguageChange}
-      />
     </div>
   );
 };
