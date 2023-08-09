@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
 import accessSecret from '../../server/api/secretManager';
-//case sensitive for Openai
+
 const apiKey = accessSecret(Openai);
 
 function TranslationDisplay({
