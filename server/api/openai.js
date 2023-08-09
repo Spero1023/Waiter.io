@@ -1,13 +1,13 @@
 
 const express = require('express');
 const { Configuration, OpenAIApi } = require('openai');
-require('dotenv').config();
+const functions = require('firebase-functions');
 
 const app = express();
 app.use(express.json());
 
 const configuration = new Configuration({
-  apiKey: process.env.API_KEY_OPENAI,
+  apiKey: functions.config().openai.key,
 });
 const openai = new OpenAIApi(configuration);
 
