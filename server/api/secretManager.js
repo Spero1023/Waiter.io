@@ -2,7 +2,7 @@ const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 
 export default async function accessSecret(secretid) {
     const client = new SecretManagerServiceClient();
-    const secretNew = `projects/379346806294/secrets/${secretid}/versions/latest`
+    const secretNew = `projects/waiterio/secrets/${secretid}/versions/latest`
 
     try {
         const [version] = await client.accessSecretVersion({

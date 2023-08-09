@@ -2,9 +2,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
-import accessSecret from '../../server/api/secretManager';
 
-const apiKey = accessSecret(Openai);
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
