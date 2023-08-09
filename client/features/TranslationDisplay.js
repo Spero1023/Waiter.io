@@ -4,12 +4,11 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = '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';
+const apiKey = 'ADD_KEY';
 
 function TranslationDisplay({
   translatedText,
   targetLanguage,
-  detectedText,
   onLanguageChange,
 }) {
   const [menu, setMenu] = useState('');
@@ -66,7 +65,7 @@ function TranslationDisplay({
 
   return (
     <div className='translator-container'>
-      <div>
+      <div className='menu-container'>
         {isLoading ? (
           <div className='loading-message'>
             <Loader />

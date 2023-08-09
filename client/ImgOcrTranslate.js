@@ -1,5 +1,6 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
+
 import TranslationDisplay from './features/TranslationDisplay';
 
 const convertImageToBase64 = (file) => {
@@ -68,7 +69,6 @@ const ImageUploadForm = () => {
     const file = event.target.files[0];
     setImageFile(file);
     setImageUrl(URL.createObjectURL(file));
-    toast.success('Image Added');
   };
 
   const handleLanguageChange = (event) => {
