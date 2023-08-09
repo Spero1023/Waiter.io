@@ -1,5 +1,4 @@
 import toast, { Toaster } from 'react-hot-toast';
-
 import React, { useState, useEffect } from 'react';
 import TranslationDisplay from './features/TranslationDisplay';
 
@@ -78,6 +77,7 @@ const ImageUploadForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    toast.success('image Submitted');
     setError('');
 
     if (!imageFile) {
@@ -136,7 +136,10 @@ const ImageUploadForm = () => {
 
   return (
     <div className='form-container'>
-      <Toaster />
+      <div className='logo'>
+        <img className='icon' src='favicon.ico'></img>
+        Waiter.io
+      </div>
       <form className='translator-form' onSubmit={handleSubmit}>
         <input
           type='file'
@@ -159,14 +162,6 @@ const ImageUploadForm = () => {
           Submit
         </button>
       </form>
-      <div className='translation-info'>
-        <p>
-          <strong>Detected Text:</strong> {detectedText}
-        </p>
-        <p>
-          <strong>Translated Text:</strong> {translatedText}
-        </p>
-      </div>
       {imageUrl && (
         <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
       )}
@@ -176,6 +171,7 @@ const ImageUploadForm = () => {
         detectedText={detectedText}
         onLanguageChange={handleLanguageChange}
       />
+      <Toaster />
     </div>
   );
 };

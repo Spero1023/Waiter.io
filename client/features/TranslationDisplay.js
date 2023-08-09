@@ -2,6 +2,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const parse = require('html-react-parser');
+import Loader from './loader/loader';
 
 const apiKey = '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';
 
@@ -23,10 +24,7 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `
-  No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  If you recive a price i want you to take that currency and then do the conversion to the respective language you are displaying
-  Example - (number) yuan will become $(number)
+  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
   Return each section inside of a div.`;
 
   const handleSubmit = async () => {
@@ -56,7 +54,7 @@ function TranslationDisplay({
       const generatedText = response.data.choices[0].text;
       setMenu(parse(generatedText));
       setIsLoading(false);
-      toast.success('This worked', {
+      toast.success('Menu Formatted', {
         id: toastId,
       });
     } catch (error) {
@@ -68,10 +66,10 @@ function TranslationDisplay({
 
   return (
     <div className='translator-container'>
-      <div className='menu-container'>
+      <div>
         {isLoading ? (
           <div className='loading-message'>
-            Menu Loading Below, Please Wait.
+            <Loader />
           </div>
         ) : (
           <div className='menu-content'>
