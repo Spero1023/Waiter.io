@@ -1,6 +1,5 @@
-import toast, { Toaster } from 'react-hot-toast';
-
 import React, { useState, useEffect } from 'react';
+
 import TranslationDisplay from './features/TranslationDisplay';
 
 const convertImageToBase64 = (file) => {
@@ -69,7 +68,6 @@ const ImageUploadForm = () => {
     const file = event.target.files[0];
     setImageFile(file);
     setImageUrl(URL.createObjectURL(file));
-    toast.success('Image Added');
   };
 
   const handleLanguageChange = (event) => {
@@ -136,7 +134,6 @@ const ImageUploadForm = () => {
 
   return (
     <div>
-      <Toaster />
       <form onSubmit={handleSubmit}>
         <input
           type='file'
@@ -152,20 +149,23 @@ const ImageUploadForm = () => {
         </select>
         <button type='submit'>Submit</button>
       </form>
+      {error && <p>Error: {error}</p>}
       <div>
         <p>
           <strong>Detected Text:</strong> {detectedText}
         </p>
         <strong>trans Text:</strong> {translatedText}
+        <p>
+          <TranslationDisplay
+            translatedText={translatedText}
+            targetLanguage={targetLanguage}
+            onLanguageChange={handleLanguageChange}
+          />
+        </p>
       </div>
       {imageUrl && (
         <img src={imageUrl} alt='Uploaded' style={{ maxWidth: '500px' }} />
       )}
-      <TranslationDisplay
-        translatedText={translatedText}
-        targetLanguage={targetLanguage}
-        onLanguageChange={handleLanguageChange}
-      />
     </div>
   );
 };
