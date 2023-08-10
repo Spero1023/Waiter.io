@@ -4,7 +4,7 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = 'ADD_KEY';
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
@@ -74,7 +74,7 @@ function TranslationDisplay({
           <div className='menu-content'>
             {menu !== ''
               ? menu
-              : 'Upload image then press submit to translate your menu.'}
+              : "Begin by uploading your menu & then choosing your desired language. Press 'Submit' to translate & reformat. "}
           </div>
         )}
       </div>
