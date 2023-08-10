@@ -1,17 +1,17 @@
-* {
+/* * {
   color: #17181c;
 }
+*/
 :root {
   --bg: #e3e4e8;
   --fg: #17181c;
   --dur: 8s;
-  /* font-size: 15px; */
 }
+
 body {
   background: var(--bg);
   color: var(--fg);
   font: bold 1em/1.5 'Comfortaa', sans-serif;
-  display: grid;
 }
 .hexagon {
   margin-bottom: 1.5em;

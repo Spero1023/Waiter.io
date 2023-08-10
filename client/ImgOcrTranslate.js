@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import  { languageMap, languageReducer } from "./languageReducer"
 
 import TranslationDisplay from './features/TranslationDisplay';
+import Footer from './features/footer/footer';
+import DarkMode from './features/darkMode/DarkToggleMUI';
 
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -137,10 +139,10 @@ const ImageUploadForm = () => {
 
   return (
     <div className='form-container'>
-      <div className='logo'>
-        <img className='icon' src='favicon.ico'></img>
-        Waiter.io
-      </div>
+      <div className='logo'>Waiter.io</div>
+      <DarkMode />
+
+      <img className='icon' src='favicon.ico'></img>
       <form className='translator-form' onSubmit={handleSubmit}>
         <input
           type='file'
@@ -175,6 +177,7 @@ const ImageUploadForm = () => {
         onLanguageChange={handleLanguageChange}
       />
       <Toaster />
+      <Footer />
     </div>
   );
 };
