@@ -1,5 +1,6 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
+import  { languageMap, languageReducer } from "./languageReducer"
 
 import TranslationDisplay from './features/TranslationDisplay';
 
@@ -153,10 +154,12 @@ const ImageUploadForm = () => {
           onChange={handleLanguageChange}
           required
         >
-          <option value='en'>English</option>
-          <option value='fr'>French</option>
-          <option value='da'>Danish</option>
-          <option value='it'>Italian</option>
+          <option value=''>Select a language</option>
+          {Object.entries(languageMap).map(([code, name]) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
         </select>
         <button className='submit-button' type='submit'>
           Submit
