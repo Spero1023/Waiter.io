@@ -1,10 +1,11 @@
 import React from 'react';
+import './footer.css';
 
 function Footer() {
   return (
-    <divfooterBar>
+    <div className='footerBar'>
       <div>hi</div>
-    </divfooterBar>
+    </div>
   );
 }
 export default Footer;

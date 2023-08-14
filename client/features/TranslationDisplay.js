@@ -4,7 +4,7 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = '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';
+const apiKey = 'ADD_API_KEY';
 
 function TranslationDisplay({
   translatedText,
@@ -72,9 +72,14 @@ function TranslationDisplay({
           </div>
         ) : (
           <div className='menu-content'>
-            {menu !== ''
-              ? menu
-              : "Begin by uploading your menu & then choosing your desired language. Press 'Submit' to translate & reformat. "}
+            {menu !== '' ? (
+              menu
+            ) : (
+              <div className='directions'>
+                Begin by uploading your menu & then choosing your desired
+                language. Press 'Submit' to translate & reformat.
+              </div>
+            )}
           </div>
         )}
       </div>
