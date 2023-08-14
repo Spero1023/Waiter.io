@@ -4,7 +4,7 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = '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';
+const apiKey = 'ADD_API_KEY';
 
 function TranslationDisplay({
   translatedText,
