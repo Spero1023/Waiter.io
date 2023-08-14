@@ -1,9 +1,11 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import TranslationDisplay from './features/TranslationDisplay';
-import Footer from './features/footer/footer';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DarkMode from './features/darkMode/DarkToggleMUI';
-
+import './translatorCss/NeonButton.css';
+import './translatorCss/languageSelect.css';
+import './translatorCss/logo.css';
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -136,45 +138,58 @@ const ImageUploadForm = () => {
   }, [detectedText, targetLanguage]);
 
   return (
-    <div className='form-container'>
-      <div className='logo'>Waiter.io</div>
-      <DarkMode />
+    <>
+      <div className='form-container'>
+        <img className='icon' src='favicon.ico'></img>
+        <div class='logo'>
+          <b>
+            W<span>a</span>iter.<span>io</span>
+          </b>
+        </div>
+        {/* <DarkMode /> */}
 
-      <img className='icon' src='favicon.ico'></img>
-      <form className='translator-form' onSubmit={handleSubmit}>
-        <input
-          type='file'
-          accept='image/*'
-          onChange={handleFileChange}
-          required
+        <form className='translator-form' onSubmit={handleSubmit}>
+          <button
+            className='neon-button'
+            onClick={() => document.getElementById('fileInput').click()}
+          >
+            <AddPhotoAlternateIcon />
+          </button>
+          <input
+            type='file'
+            id='fileInput'
+            style={{ display: 'none' }}
+            accept='image/*'
+            onChange={handleFileChange}
+            required
+          />
+          <select
+            className='neon-button'
+            value={targetLanguage}
+            onChange={handleLanguageChange}
+            required
+          >
+            <option value='en'>English</option>
+            <option value='fr'>French</option>
+            <option value='da'>Danish</option>
+            <option value='it'>Italian</option>
+          </select>
+          <button className='neon-button' type='submit'>
+            Submit
+          </button>
+        </form>
+        {imageUrl && (
+          <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
+        )}
+        <TranslationDisplay
+          translatedText={translatedText}
+          targetLanguage={targetLanguage}
+          detectedText={detectedText}
+          onLanguageChange={handleLanguageChange}
         />
-        <select
-          className='language-select'
-          value={targetLanguage}
-          onChange={handleLanguageChange}
-          required
-        >
-          <option value='en'>English</option>
-          <option value='fr'>French</option>
-          <option value='da'>Danish</option>
-          <option value='it'>Italian</option>
-        </select>
-        <button className='submit-button' type='submit'>
-          Submit
-        </button>
-      </form>
-      {imageUrl && (
-        <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
-      )}
-      <TranslationDisplay
-        translatedText={translatedText}
-        targetLanguage={targetLanguage}
-        detectedText={detectedText}
-        onLanguageChange={handleLanguageChange}
-      />
-      <Toaster />
-      <Footer />
-    </div>
+        <Toaster />
+      </div>
+    </>
   );
 };
 
