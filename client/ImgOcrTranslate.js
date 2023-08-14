@@ -1,5 +1,7 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
+import  { languageMap, languageReducer } from "./languageReducer"
+
 import TranslationDisplay from './features/TranslationDisplay';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DarkMode from './features/darkMode/DarkToggleMUI';
@@ -164,16 +166,18 @@ const ImageUploadForm = () => {
             required
           />
           <select
-            className='neon-button'
-            value={targetLanguage}
-            onChange={handleLanguageChange}
-            required
-          >
-            <option value='en'>English</option>
-            <option value='fr'>French</option>
-            <option value='da'>Danish</option>
-            <option value='it'>Italian</option>
-          </select>
+          className='language-select'
+          value={targetLanguage}
+          onChange={handleLanguageChange}
+          required
+        >
+          <option value=''>Select a language</option>
+          {Object.entries(languageMap).map(([code, name]) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </select>
           <button className='neon-button' type='submit'>
             Submit
           </button>
@@ -189,7 +193,7 @@ const ImageUploadForm = () => {
         />
         <Toaster />
       </div>
-    </>
+    </>  
   );
 };
 
