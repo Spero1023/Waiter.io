@@ -4,8 +4,6 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = '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';
-
 function TranslationDisplay({
   translatedText,
   targetLanguage,
@@ -24,7 +22,7 @@ function TranslationDisplay({
   }, [translatedText]);
 
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div.`;
+  Return each section inside of a div. Language:`;
 
   const handleSubmit = async () => {
     if (translatedText === '') {
@@ -36,32 +34,34 @@ function TranslationDisplay({
         id: toastId,
       });
       const response = await axios.post(
-        `https://api.openai.com/v1/engines/text-davinci-003/completions`,
+        "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
         {
-          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
+          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText}`,
           max_tokens: 700,
           temperature: 0,
         },
         {
-          headers: {
+          "headers": {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
           },
         }
       );
-
-      const generatedText = response.data.choices[0].text;
+  
+      const generatedText = response.data.message;
+  
       setMenu(parse(generatedText));
       setIsLoading(false);
       toast.success('Menu Formatted', {
         id: toastId,
       });
     } catch (error) {
-      console.error('Error calling /api/reformat-menu', error);
+      console.error('Error', error);
       setIsLoading(false);
+      toast.dismiss(toastId);
       toast.error('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div className='translator-container'>
