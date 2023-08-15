@@ -4,57 +4,57 @@ import './loader.css';
 function Loader() {
   return (
     <>
-      <div class='hexagon' aria-label='Animated hexagonal ripples'>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+      <div className='hexagon' aria-label='Animated hexagonal ripples'>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
-        <div class='hexagon__group'>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
-          <div class='hexagon__sector'></div>
+        <div className='hexagon__group'>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
+          <div className='hexagon__sector'></div>
         </div>
       </div>
-      <p class='center' aria-label='Loading'>
+      <p className='center' aria-label='Loading'>
         Formatting...
       </p>
     </>
