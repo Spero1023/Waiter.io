@@ -1,0 +1,25 @@
+@import url(//fonts.googleapis.com/css?family=Oswald);
+.Container {
+  position: absolute;
+  justify-content: flex-end;
+  padding-top: 23px;
+}
+
+.Login {
+  background-color: transparent;
+  border-color: transparent;
+  color: rgb(255, 255, 255);
+  transition: 0.3s;
+  text-decoration: underline;
+  font: 100 20px 'Oswald';
+}
+
+.Login:hover {
+  color: orange;
+}
+
+.pfp {
+  border-radius: 50%;
+  width: 40px;
+  height: auto;
+}

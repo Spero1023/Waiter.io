@@ -1,18 +1,20 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
-import  { languageMap, languageReducer } from "./languageReducer"
+import { languageMap, languageReducer } from './languageReducer';
 
 import TranslationDisplay from './features/TranslationDisplay';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import DarkMode from './features/darkMode/DarkToggleMUI';
+
 import './translatorCss/NeonButton.css';
 import './translatorCss/languageSelect.css';
 import './translatorCss/logo.css';
+import './features/footer/beta.css'; //BETA ICON
+
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
-      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image/...;base64,
+      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image
     };
     reader.onerror = reject;
     reader.readAsDataURL(file);
@@ -73,6 +75,7 @@ const ImageUploadForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
+    toast.success('image added');
     setImageUrl(URL.createObjectURL(file));
   };
 
@@ -87,6 +90,7 @@ const ImageUploadForm = () => {
 
     if (!imageFile) {
       setError('Please select an image.');
+      toast.error('Please select an image.');
       return;
     }
 
@@ -142,13 +146,15 @@ const ImageUploadForm = () => {
   return (
     <>
       <div className='form-container'>
+        {/* BETA ICON  */}
+        <div className='beta'>beta</div>
+        {/* BETA ICON  */}
         <img className='icon' src='favicon.ico'></img>
-        <div class='logo'>
+        <div className='logo'>
           <b>
             W<span>a</span>iter.<span>io</span>
           </b>
         </div>
-        {/* <DarkMode /> */}
 
         <form className='translator-form' onSubmit={handleSubmit}>
           <button
@@ -165,19 +171,20 @@ const ImageUploadForm = () => {
             onChange={handleFileChange}
             required
           />
-          <select
-          className='language-select'
-          value={targetLanguage}
-          onChange={handleLanguageChange}
-          required
-        >
-          <option value=''>Select a language</option>
-          {Object.entries(languageMap).map(([code, name]) => (
-            <option key={code} value={code}>
-              {name}
-            </option>
-          ))}
-        </select>
+          <div className='neon-select-container'>
+            <select
+              className='neon-select'
+              value={targetLanguage}
+              onChange={handleLanguageChange}
+              required
+            >
+              {Object.entries(languageMap).map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
           <button className='neon-button' type='submit'>
             Submit
           </button>
@@ -186,14 +193,12 @@ const ImageUploadForm = () => {
           <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
         )}
         <TranslationDisplay
-          translatedText={translatedText}
-          targetLanguage={targetLanguage}
-          detectedText={detectedText}
+          {...{ translatedText, targetLanguage, detectedText }}
           onLanguageChange={handleLanguageChange}
         />
         <Toaster />
       </div>
-    </>  
+    </>
   );
 };
 

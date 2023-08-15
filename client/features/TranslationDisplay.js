@@ -4,7 +4,7 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = 'ADD_API_KEY';
+const apiKey = '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';
 
 function TranslationDisplay({
   translatedText,
@@ -24,7 +24,7 @@ function TranslationDisplay({
   }, [translatedText]);
 
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div.`;
+  Return the menu in a div with the catagories in a h3 and the dishes in a ul with the allergens after. If a price is given for the item display that at the end next to the allergens`;
 
   const handleSubmit = async () => {
     if (translatedText === '') {
@@ -40,7 +40,7 @@ function TranslationDisplay({
         {
           prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
           max_tokens: 700,
-          temperature: 0,
+          temperature: 0.1,
         },
         {
           headers: {
@@ -76,8 +76,9 @@ function TranslationDisplay({
               menu
             ) : (
               <div className='directions'>
-                Begin by uploading your menu & then choosing your desired
-                language. Press 'Submit' to translate & reformat.
+                <div>Upload a picture of your menu</div>
+                <div>Choose your desired language</div>
+                <div>Hit submit & wait</div>
               </div>
             )}
           </div>
