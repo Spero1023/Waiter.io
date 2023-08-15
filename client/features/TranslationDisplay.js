@@ -34,14 +34,12 @@ function TranslationDisplay({
         id: toastId,
       });
       const response = await axios.post(
-        "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
+        "/api/openai",
         {
           prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText}`,
-          max_tokens: 700,
-          temperature: 0,
         },
         {
-          "headers": {
+          headers: {
             'Content-Type': 'application/json',
           },
         }

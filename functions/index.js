@@ -1,26 +1,12 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable indent */
 /* eslint-disable quote-props */
 /* eslint-disable quotes */
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 // eslint-disable-next-line no-unused-vars
 const {onRequest} = require("firebase-functions/v2/https");
 // eslint-disable-next-line no-unused-vars
 const logger = require("firebase-functions/logger");
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const express = require("express");
@@ -29,6 +15,7 @@ const cors = require('cors');
 const axios = require('axios');
 const app = express();
 app.use(cors);
+app.use(express.json());
 
 // Initialize the Firebase Admin SDK
 admin.initializeApp();
@@ -50,11 +37,26 @@ app.get("/api/keys", async (req, res) => {
 exports.fetchKeys = functions.https.onRequest(app);
 
 app.post('/reformat-menu', async (req, res) => {
+  const getApiKey = () => {
+    return new Promise((resolve, reject) => {
+      const apiKey = functions.config().openai.key;
+      if (apiKey) {
+        resolve(apiKey);
+      } else {
+        reject(new Error("API key not found"));
+      }
+    });
+  };
+
   console.log('Received request for reformat-menu');
-  const apiKey = functions.config().openai.key;
+  const apiKey = await getApiKey();
   console.log('API Key:', apiKey); // Log the retrieved API key
   const prompt = req.body.prompt;
   console.log('Prompt:', prompt); // Log the prompt
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${apiKey}`,
+  };
 
   try {
     if (prompt == null) {
@@ -69,12 +71,7 @@ app.post('/reformat-menu', async (req, res) => {
         max_tokens: 700,
         temperature: 0,
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-      },
+      {headers: headers},
     );
 
     console.log('Received response from OpenAI:', response.data);
