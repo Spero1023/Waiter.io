@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const { generateKey } = require('crypto');
 const app = express();
 module.exports = app;
-require('dotenv').config();
-console.log(process.env.OPENAI_API_KEY);
 
 const openaiRoute = require('./openai');
 
