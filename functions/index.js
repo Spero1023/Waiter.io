@@ -14,9 +14,9 @@ const cors = require('cors');
 
 const axios = require('axios');
 const app = express();
-app.use(cors);
-app.use(express.json());
+app.use(cors());
 
+app.use(express.json());
 // Initialize the Firebase Admin SDK
 admin.initializeApp();
 
@@ -37,26 +37,24 @@ app.get("/api/keys", async (req, res) => {
 exports.fetchKeys = functions.https.onRequest(app);
 
 app.post('/reformat-menu', async (req, res) => {
-  const getApiKey = () => {
-    return new Promise((resolve, reject) => {
-      const apiKey = functions.config().openai.key;
-      if (apiKey) {
-        resolve(apiKey);
-      } else {
-        reject(new Error("API key not found"));
-      }
-    });
-  };
-
   console.log('Received request for reformat-menu');
-  const apiKey = await getApiKey();
-  console.log('API Key:', apiKey); // Log the retrieved API key
+
+  // Fetch API Key within the route
+  let apiKey;
+  try {
+      apiKey = functions.config().openai.key;
+  } catch (error) {
+      console.error("API Key not configured:", error);
+      return res.status(500).json({error: "API Key not configured"});
+  }
+
+  console.log('API Key:', apiKey);
   const prompt = req.body.prompt;
-  console.log('Prompt:', prompt); // Log the prompt
   const headers = {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${apiKey}`,
   };
+  console.log(headers);
 
   try {
     if (prompt == null) {
@@ -86,7 +84,6 @@ app.post('/reformat-menu', async (req, res) => {
     return res.status(500).json({error: 'Failed to reformat'});
   }
 });
-
 
 // Export the HTTP function
 exports.openai = functions.https.onRequest(app);

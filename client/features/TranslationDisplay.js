@@ -18,45 +18,34 @@ function TranslationDisplay({
   }, [translatedText, targetLanguage, onLanguageChange]);
 
   useEffect(() => {
-    handleSubmit(targetLanguage);
+    handleSubmit(targetLanguage, translatedText);
   }, [translatedText]);
 
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
   Return each section inside of a div. Language:`;
 
-  const handleSubmit = async () => {
-    if (translatedText === '') {
-      return;
-    }
+  const handleSubmit = async (targetLanguage, translatedText) => {
+    const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
+  //for some reason this is using an old openai key
     try {
-      setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
-        id: toastId,
-      });
       const response = await axios.post(
-        "/api/openai",
+        "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
         {
-          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText}`,
+          prompt: newPrompt
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
   
-      const generatedText = response.data.message;
-  
-      setMenu(parse(generatedText));
-      setIsLoading(false);
-      toast.success('Menu Formatted', {
-        id: toastId,
-      });
+      const reformattedMenu = response.data.message;
+      setMenu(parse(reformattedMenu));
     } catch (error) {
       console.error('Error', error);
-      setIsLoading(false);
-      toast.dismiss(toastId);
-      toast.error('An error occurred. Please try again.');
+      console.error('Full Error Response:', error.response.data);
+      toast.error('An error occurred while reformatting. Please try again.');
     }
   };
   
