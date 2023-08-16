@@ -87,7 +87,6 @@ const ImageUploadForm = () => {
     event.preventDefault();
     toast.success('image Submitted');
     setError('');
-
     if (!imageFile) {
       setError('Please select an image.');
       toast.error('Please select an image.');
@@ -166,11 +165,12 @@ const ImageUploadForm = () => {
           <input
             type='file'
             id='fileInput'
-            style={{ display: 'none' }}
+            name='uploadedFile'
             accept='image/*'
             onChange={handleFileChange}
             required
           />
+
           <div className='neon-select-container'>
             <select
               className='neon-select'
