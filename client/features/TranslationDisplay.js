@@ -4,8 +4,6 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = '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';
-
 function TranslationDisplay({
   translatedText,
   targetLanguage,
@@ -35,29 +33,22 @@ function TranslationDisplay({
       const toastId = toast.loading('Loading...', {
         id: toastId,
       });
+
       const response = await axios.post(
-        `https://api.openai.com/v1/engines/text-davinci-003/completions`,
+        '/openai/generate-response', // Use the backend route here
         {
-          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
-          max_tokens: 700,
-          temperature: 0.1,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
+          message: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
         }
       );
 
-      const generatedText = response.data.choices[0].text;
+      const generatedText = response.data.response;
       setMenu(parse(generatedText));
       setIsLoading(false);
       toast.success('Menu Formatted', {
         id: toastId,
       });
     } catch (error) {
-      console.error('Error calling /api/reformat-menu', error);
+      console.error('Error calling /openai/generate-response', error);
       setIsLoading(false);
       toast.error('An error occurred. Please try again.');
     }
@@ -76,9 +67,9 @@ function TranslationDisplay({
               menu
             ) : (
               <div className='directions'>
-                <div>Upload a picture of your menu</div>
-                <div>Choose your desired language</div>
-                <div>Hit submit & wait</div>
+                <div> Begin by uploading a picture of your menu</div>
+                <div> Choose your desired language</div>
+                <div> Hit submit & wait</div>
               </div>
             )}
           </div>
