@@ -138,7 +138,7 @@ const ImageUploadForm = () => {
     }
   };
 
-  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes
+  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes.
   useEffect(() => {
     handleTranslate(detectedText, targetLanguage, setTranslatedText, setError);
   }, [detectedText, targetLanguage]);
