@@ -5,7 +5,7 @@
 }
 
 body {
-  color: var(--fg);
+  color: white;
   font: bold 1em/1.5 'Comfortaa', sans-serif;
 }
 .hexagon {

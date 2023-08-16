@@ -5,13 +5,13 @@ require('dotenv').config();
 
 router.post('/generate-response', async (req, res) => {
   try {
-    const userMessage = req.body.message;
     const apiKey = process.env.OPENAI_API_KEY;
 
+    const userMessage = req.body.message;
     const response = await axios.post(
       'https://api.openai.com/v1/engines/text-davinci-003/completions',
       {
-        prompt: userMessage,
+        prompt: `${userMessage}`,
         max_tokens: 700,
       },
       {
