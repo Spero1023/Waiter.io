@@ -87,7 +87,7 @@ body {
 .hexagon__sector:before,
 .hexagon__sector:after {
   animation-name: ripple;
-  background-color: currentColor;
+  background-color: white;
   border-radius: 0.1em;
   content: '';
   display: block;
