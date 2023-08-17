@@ -1,18 +1,20 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
-import  { languageMap, languageReducer } from "./languageReducer"
+import { languageMap, languageReducer } from './languageReducer';
 
 import TranslationDisplay from './features/TranslationDisplay';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import DarkMode from './features/darkMode/DarkToggleMUI';
+
 import './translatorCss/NeonButton.css';
 import './translatorCss/languageSelect.css';
 import './translatorCss/logo.css';
+import './features/footer/beta.css'; //BETA ICON
+
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
-      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image/...;base64,
+      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image
     };
     reader.onerror = reject;
     reader.readAsDataURL(file);
@@ -35,7 +37,7 @@ const handleTranslate = async (
 
   try {
     const translateResponse = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ`,
+      `https://translation.googleapis.com/language/translate/v2?key=AIzaSyAxaM9gEgI2GoyNQ18am08IvV8E2puwQnI`,
       {
         method: 'POST',
         headers: {
@@ -73,6 +75,7 @@ const ImageUploadForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
+    toast.success('image added');
     setImageUrl(URL.createObjectURL(file));
   };
 
@@ -84,9 +87,9 @@ const ImageUploadForm = () => {
     event.preventDefault();
     toast.success('image Submitted');
     setError('');
-
     if (!imageFile) {
       setError('Please select an image.');
+      toast.error('Please select an image.');
       return;
     }
 
@@ -110,7 +113,7 @@ const ImageUploadForm = () => {
 
     try {
       const response = await fetch(
-        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDbi-wsmaXBtJk0eVNbvi0H2rxp0M_ZZRQ',
+        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAxaM9gEgI2GoyNQ18am08IvV8E2puwQnI',
         {
           method: 'POST',
           headers: {
@@ -134,21 +137,24 @@ const ImageUploadForm = () => {
     }
   };
 
-  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes
+  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes.
   useEffect(() => {
     handleTranslate(detectedText, targetLanguage, setTranslatedText, setError);
   }, [detectedText, targetLanguage]);
 
   return (
     <>
+      TEST #13
       <div className='form-container'>
+        {/* BETA ICON  */}
+        <div className='beta'>beta</div>
+        {/* BETA ICON  */}
         <img className='icon' src='favicon.ico'></img>
-        <div class='logo'>
+        <div className='logo'>
           <b>
             W<span>a</span>iter.<span>io</span>
           </b>
         </div>
-        {/* <DarkMode /> */}
 
         <form className='translator-form' onSubmit={handleSubmit}>
           <button
@@ -160,24 +166,27 @@ const ImageUploadForm = () => {
           <input
             type='file'
             id='fileInput'
-            style={{ display: 'none' }}
+            name='uploadedFile'
             accept='image/*'
+            style={{ display: 'none' }}
             onChange={handleFileChange}
             required
           />
-          <select
-          className='language-select'
-          value={targetLanguage}
-          onChange={handleLanguageChange}
-          required
-        >
-          <option value=''>Select a language</option>
-          {Object.entries(languageMap).map(([code, name]) => (
-            <option key={code} value={code}>
-              {name}
-            </option>
-          ))}
-        </select>
+
+          <div className='neon-select-container'>
+            <select
+              className='neon-select'
+              value={targetLanguage}
+              onChange={handleLanguageChange}
+              required
+            >
+              {Object.entries(languageMap).map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
           <button className='neon-button' type='submit'>
             Submit
           </button>
@@ -186,14 +195,12 @@ const ImageUploadForm = () => {
           <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
         )}
         <TranslationDisplay
-          translatedText={translatedText}
-          targetLanguage={targetLanguage}
-          detectedText={detectedText}
+          {...{ translatedText, targetLanguage, detectedText }}
           onLanguageChange={handleLanguageChange}
         />
         <Toaster />
       </div>
-    </>  
+    </>
   );
 };
 

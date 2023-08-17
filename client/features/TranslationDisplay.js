@@ -4,8 +4,6 @@ import axios from 'axios';
 const parse = require('html-react-parser');
 import Loader from './loader/loader';
 
-const apiKey = 'ADD_API_KEY';
-
 function TranslationDisplay({
   translatedText,
   targetLanguage,
@@ -23,8 +21,7 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div.`;
+  const prompt = `i want you to format the following text into a html div. Here is the `;
 
   const handleSubmit = async () => {
     if (translatedText === '') {
@@ -32,34 +29,29 @@ function TranslationDisplay({
     }
     try {
       setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
-        id: toastId,
-      });
+      const toastId = toast.loading('Loading...');
       const response = await axios.post(
-        `https://api.openai.com/v1/engines/text-davinci-003/completions`,
-        {
-          prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
-          max_tokens: 700,
-          temperature: 0,
-        },
+        '/openai/generate-response',
+        JSON.stringify({
+          message: `say hello world`,
+        }),
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
           },
         }
       );
-
-      const generatedText = response.data.choices[0].text;
+      const generatedText = response.data.response;
+      console.log(generatedText, 'test');
       setMenu(parse(generatedText));
-      setIsLoading(false);
       toast.success('Menu Formatted', {
         id: toastId,
       });
     } catch (error) {
-      console.error('Error calling /api/reformat-menu', error);
-      setIsLoading(false);
+      console.error('Error calling /openai/generate-response', error);
       toast.error('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,8 +68,9 @@ function TranslationDisplay({
               menu
             ) : (
               <div className='directions'>
-                Begin by uploading your menu & then choosing your desired
-                language. Press 'Submit' to translate & reformat.
+                <div> Begin by uploading a picture of your menu</div>
+                <div> Choose your desired language</div>
+                <div> Hit submit & wait</div>
               </div>
             )}
           </div>

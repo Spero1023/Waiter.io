@@ -1,6 +1,8 @@
+@import url(//fonts.googleapis.com/css?family=Caveat);
 body {
-  /* background: #112 url(bg.jpg); */
   background-color: rgb(15, 15, 20);
+  height: 98vh;
+  overflow-x: hidden;
 }
 
 .form-container {
@@ -40,12 +42,15 @@ body {
   padding-top: 20px;
   position: relative;
   bottom: 140px;
+  color: white;
 }
 
 .directions {
-  font-weight: bold;
   text-decoration: underline;
   text-align: center;
+  text-transform: capitalize;
+  color: rgb(178, 178, 178);
+  font: 400 25px 'Caveat';
 }
 
 h3 {
@@ -59,23 +64,4 @@ h3 {
   padding-right: 40px;
 }
 
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  box-shadow: 0 4px 2px -2px rgb(45, 45, 45);
-  margin-right: 20px;
-}
-
-.upload-btn-wrapper input[type='file'] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-::-webkit-file-upload-button {
-  display: none;
-}
 /* -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); */
