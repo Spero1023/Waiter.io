@@ -5,7 +5,6 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2018,
-    ecmaVersion: 2018,
   },
   extends: ['eslint:recommended', 'google'],
   rules: {
@@ -17,7 +16,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.spec.*'],
       files: ['**/*.spec.*'],
       env: {
         mocha: true,
