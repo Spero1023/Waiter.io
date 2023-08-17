@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const app = express();
 module.exports = app;
 
-const openaiRoute = require('./openai');
 
 // logging middleware
 app.use(morgan('dev'));
@@ -16,7 +15,7 @@ app.use(express.json());
 // auth and api routes
 app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
-app.use('/openai', openaiRoute);
+
 
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '..', 'public/index.html'))

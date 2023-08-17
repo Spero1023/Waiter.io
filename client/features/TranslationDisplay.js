@@ -23,40 +23,39 @@ function TranslationDisplay({
 
   const prompt = `i want you to format the following text into a html div. Here is the `;
 
+  const apiKey = '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';
   const handleSubmit = async () => {
     if (translatedText === '') {
       return;
     }
-    try {
-      setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
-        id: toastId,
-      });
-      const response = await axios
-        .post(
-          '/openai/generate-response',
-          JSON.stringify({
-            message: ` ${prompt} text: ${translatedText}`,
-          })
-        )
-        .then((response) => {
-          const generatedText = response.data.response;
-          console.log(generatedText);
-          setMenu(parse(generatedText));
-          setIsLoading(false);
-          toast.success('Menu Formatted', {
-            id: toastId,
-          });
-        })
-        .catch((error) => {
-          throw error;
-        });
-    } catch (error) {
-      console.error('Error calling /openai/generate-response', error);
+   try {
+    const response = await axios.post(
+      `https://api.openai.com/v1/engines/text-davinci-003/completions`,
+      {
+        prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
+        max_tokens: 700,
+        temperature: 0.1,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+    const generatedText = response.data.choices[0].text;
+    setMenu(parse(generatedText));
+    setIsLoading(false);
+    toast.success('Menu Formatted', {
+      id: toastId,
+    });
+  } catch(error){
+      console.error('Error calling /api/reformat-menu', error);
       setIsLoading(false);
       toast.error('An error occurred. Please try again.');
-    }
-  };
+  }
+  } 
+  
 
   return (
     <div className='translator-container'>
