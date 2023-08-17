@@ -5,7 +5,7 @@
 }
 
 body {
-  color: var(--fg);
+  color: white;
   font: bold 1em/1.5 'Comfortaa', sans-serif;
 }
 .hexagon {
@@ -87,7 +87,7 @@ body {
 .hexagon__sector:before,
 .hexagon__sector:after {
   animation-name: ripple;
-  background-color: currentColor;
+  background-color: white;
   border-radius: 0.1em;
   content: '';
   display: block;
