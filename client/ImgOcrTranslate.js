@@ -144,7 +144,7 @@ const ImageUploadForm = () => {
 
   return (
     <>
-      TEST #1
+      TEST #4
       <div className='form-container'>
         {/* BETA ICON  */}
         <div className='beta'>beta</div>
@@ -168,6 +168,7 @@ const ImageUploadForm = () => {
             id='fileInput'
             name='uploadedFile'
             accept='image/*'
+            style={{ display: 'none' }}
             onChange={handleFileChange}
             required
           />

@@ -21,38 +21,41 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return the menu in a div with the categories in a h3 and the dishes in a ul with the allergens after. If a price is given for the item display that at the end next to the allergens `;
+  const prompt = `i want you to format the following text into a html div. Here is the `;
 
   const handleSubmit = async () => {
     if (translatedText === '') {
       return;
     }
+
     try {
       setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
+      const toastId = toast.loading('Loading...');
+
+      const response = await axios.post(
+        '/openai/generate-response',
+        JSON.stringify({
+          message: ` ${prompt} text: ${translatedText}`,
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const generatedText = response.data.response;
+      console.log(generatedText);
+      setMenu(parse(generatedText));
+
+      toast.success('Menu Formatted', {
         id: toastId,
       });
-      // try {
-      const response = await axios
-        .post('/openai/generate-response', {
-          message: ` ${prompt} ${targetLanguage} text: ${translatedText}`,
-        })
-        .then((response) => {
-          const generatedText = response.data.response;
-          setMenu(parse(generatedText));
-          setIsLoading(false);
-          toast.success('Menu Formatted', {
-            id: toastId,
-          });
-        })
-        .catch((error) => {
-          throw error;
-        });
     } catch (error) {
       console.error('Error calling /openai/generate-response', error);
-      setIsLoading(false);
       toast.error('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
