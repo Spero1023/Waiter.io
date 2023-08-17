@@ -11,7 +11,7 @@ router.post('/generate-response', async (req, res) => {
     const response = await axios.post(
       'https://api.openai.com/v1/engines/text-davinci-003/completions',
       {
-        prompt: `${userMessage}`,
+        prompt: `say hello world`,
         max_tokens: 700,
       },
       {
