@@ -27,9 +27,11 @@ function TranslationDisplay({
     if (translatedText === '') {
       return;
     }
+
     try {
       setIsLoading(true);
       const toastId = toast.loading('Loading...');
+
       const response = await axios.post(
         '/openai/generate-response',
         JSON.stringify({
@@ -41,9 +43,11 @@ function TranslationDisplay({
           },
         }
       );
+
       const generatedText = response.data.response;
       console.log(generatedText);
       setMenu(parse(generatedText));
+
       toast.success('Menu Formatted', {
         id: toastId,
       });
