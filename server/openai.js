@@ -7,7 +7,7 @@ router.post('/generate-response', async (req, res) => {
   try {
     const apiKey = process.env.OPENAI_API_KEY;
     const userMessage = req.body.message;
-    console.log(userMessage);
+    console.log(userMessage, 'this is backend');
     const response = await axios.post(
       'https://api.openai.com/v1/engines/text-davinci-003/completions',
       {
