@@ -27,35 +27,35 @@ function TranslationDisplay({
     if (translatedText === '') {
       return;
     }
+
     try {
       setIsLoading(true);
-      const toastId = toast.loading('Loading...', {
+      const toastId = toast.loading('Loading...');
+
+      const response = await axios.post(
+        '/openai/generate-response',
+        JSON.stringify({
+          message: ` ${prompt} text: ${translatedText}`,
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const generatedText = response.data.response;
+      console.log(generatedText);
+      setMenu(parse(generatedText));
+
+      toast.success('Menu Formatted', {
         id: toastId,
       });
-      // try {
-      const response = await axios
-        .post(
-          '/openai/generate-response',
-          JSON.stringify({
-            message: ` ${prompt} text: ${translatedText}`,
-          })
-        )
-        .then((response) => {
-          const generatedText = response.data.response;
-          console.log(generatedText);
-          setMenu(parse(generatedText));
-          setIsLoading(false);
-          toast.success('Menu Formatted', {
-            id: toastId,
-          });
-        })
-        .catch((error) => {
-          throw error;
-        });
     } catch (error) {
       console.error('Error calling /openai/generate-response', error);
-      setIsLoading(false);
       toast.error('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
