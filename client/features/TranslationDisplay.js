@@ -33,7 +33,7 @@ function TranslationDisplay({
       const response = await axios.post(
         '/openai/generate-response',
         JSON.stringify({
-          message: `say hello world`,
+          message: ` ${prompt} text: ${translatedText}`,
         }),
         {
           headers: {
@@ -42,7 +42,7 @@ function TranslationDisplay({
         }
       );
       const generatedText = response.data.response;
-      console.log(generatedText, 'test');
+      console.log(generatedText);
       setMenu(parse(generatedText));
       toast.success('Menu Formatted', {
         id: toastId,
