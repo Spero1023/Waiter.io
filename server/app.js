@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-const { generateKey } = require('crypto');
+
 const app = express();
 module.exports = app;
 
@@ -40,8 +40,6 @@ app.use((req, res, next) => {
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
-
-//openai
 
 // error handling endware
 app.use((err, req, res, next) => {
