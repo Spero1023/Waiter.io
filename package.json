@@ -54,6 +54,8 @@
     "babel-loader": "^8.2.5",
     "chai": "^4.3.6",
     "css-loader": "^6.8.1",
+    "eslint": "^8.47.0",
+    "eslint-config-google": "^0.14.0",
     "esm": "^3.2.25",
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
