@@ -12,7 +12,7 @@ router.post('/generate-response', async (req, res) => {
       'https://api.openai.com/v1/engines/text-davinci-003/completions',
       {
         prompt: userMessage,
-        max_tokens: 1,
+        max_tokens: 700,
       },
       {
         headers: {
