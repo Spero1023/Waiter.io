@@ -8,3 +8,5 @@ package-lock.json
 
 key.json
 .env
+
+firebase-debug.log
