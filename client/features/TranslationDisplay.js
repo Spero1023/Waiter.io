@@ -21,40 +21,33 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `i want you to format the following text into a html div. Here is the `;
+  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
+  Return each section inside of a div. Language:`;
 
-  const apiKey = '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';
-  const handleSubmit = async () => {
-    if (translatedText === '') {
-      return;
-    }
-   try {
-    const response = await axios.post(
-      `https://api.openai.com/v1/engines/text-davinci-003/completions`,
-      {
-        prompt: `${prompt} ${targetLanguage} 'text:' ${translatedText} `,
-        max_tokens: 700,
-        temperature: 0.1,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
+  const handleSubmit = async (targetLanguage, translatedText) => {
+    const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
+
+    try {
+      const response = await axios.post(
+        "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
+        {
+          prompt: newPrompt
         },
-      }
-    );
-    const generatedText = response.data.choices[0].text;
-    setMenu(parse(generatedText));
-    setIsLoading(false);
-    toast.success('Menu Formatted', {
-      id: toastId,
-    });
-  } catch(error){
-      console.error('Error calling /api/reformat-menu', error);
-      setIsLoading(false);
-      toast.error('An error occurred. Please try again.');
-  }
-  } 
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+  
+      const reformattedMenu = response.data.message;
+      setMenu(parse(reformattedMenu));
+    } catch (error) {
+      console.error('Error', error);
+      console.error('Full Error Response:', error.response.data);
+      toast.error('An error occurred while reformatting. Please try again.');
+    }
+  };
   
 
   return (
