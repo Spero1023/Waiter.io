@@ -23,8 +23,6 @@ function TranslationDisplay({
     }
   }, [translatedText, targetLanguage, handleSubmit]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div. Language:`;
 
   const handleSubmit = async (targetLanguage, translatedText) => {
     const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
