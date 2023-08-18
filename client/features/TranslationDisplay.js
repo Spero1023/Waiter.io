@@ -21,6 +21,7 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
+
   const prompt = `No extra commentary or pleasantries. 
   Take the role of a waiter. Look and understand what the food is and then display the allergens that the dish contains. 
   The main allergins are milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, and soybeans.
@@ -60,6 +61,7 @@ function TranslationDisplay({
       toast.error('An error occurred. Please try again.');
   }
   } 
+
   
 
   return (

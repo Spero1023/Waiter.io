@@ -1,10 +1,10 @@
+/* eslint-disable linebreak-style */
 module.exports = {
   env: {
     es6: true,
     node: true,
   },
   parserOptions: {
-    ecmaVersion: 2018,
     ecmaVersion: 2018,
   },
   extends: ['eslint:recommended', 'google'],
@@ -17,7 +17,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.spec.*'],
       files: ['**/*.spec.*'],
       env: {
         mocha: true,
