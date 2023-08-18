@@ -158,7 +158,10 @@ const ImageUploadForm = () => {
         <form className='translator-form' onSubmit={handleSubmit}>
           <button
             className='neon-button'
-            onClick={() => document.getElementById('fileInput').click()}
+            onClick={(event) => {
+              event.preventDefault();
+              document.getElementById('fileInput').click();
+            }}
           >
             <AddPhotoAlternateIcon />
           </button>
