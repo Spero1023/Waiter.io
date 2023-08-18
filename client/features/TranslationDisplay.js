@@ -23,6 +23,14 @@ function TranslationDisplay({
     }
   }, [translatedText, targetLanguage, handleSubmit]);
 
+  const prompt = `No extra commentary or pleasantries. 
+  Take the role of a waiter. Look and understand what the food is and then display the allergens that the dish contains. 
+  The main allergins are milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, and soybeans.
+  Take the following menu and categorize it by food/dish type.
+  Return the menu in a div with the catagories in a h3 and the foods in a ul with the allergens after. 
+  If a price is given for the item display that at the end next to the allergens. 
+  I want you to write EVERYTHING in this language:`;
+
 
   const handleSubmit = async (targetLanguage, translatedText) => {
     const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
