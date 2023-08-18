@@ -31,7 +31,6 @@ function TranslationDisplay({
   If a price is given for the item display that at the end next to the allergens. 
   I want you to write EVERYTHING in this language:`;
 
-
   const handleSubmit = async (targetLanguage, translatedText) => {
     const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
     if (translatedText === null || translatedText === '') {
@@ -68,22 +67,27 @@ function TranslationDisplay({
             <Loader />
           </div>
         ) : (
-          <div className='menu-content'>
-            {menu !== '' ? (
-              menu
-            ) : (
-              <div className='directions'>
-                <div> Begin by uploading a picture of your menu</div>
-                <div> Choose your desired language</div>
-                <div> Hit submit & wait</div>
-              </div>
-            )}
-          </div>
+          <>
+            <div className='menu-content'>
+              {menu !== '' ? (
+                menu
+              ) : (
+                <div className='directions'>
+                  <div> Begin by uploading a picture of your menu</div>
+                  <div> Choose your desired language</div>
+                  <div> Hit submit & wait</div>
+                </div>
+              )}
+            </div>
+            <div className='caution-message'>
+                Please always verify the information with the restaurant.
+            </div>
+          </>
         )}
       </div>
       <Toaster />
     </div>
   );
-}
+              }
 
 export default TranslationDisplay;
