@@ -1,16 +1,20 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
-import  { languageMap, languageReducer } from "./languageReducer"
+import { languageMap, languageReducer } from './languageReducer';
 
 import TranslationDisplay from './features/TranslationDisplay';
-import Footer from './features/footer/footer';
-import DarkMode from './features/darkMode/DarkToggleMUI';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+
+import './translatorCss/NeonButton.css';
+import './translatorCss/languageSelect.css';
+import './translatorCss/logo.css';
+import './features/footer/beta.css'; //BETA ICON
 
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
-      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image/...;base64,
+      resolve(reader.result.split(',')[1]); // Extract base64 string without data:image
     };
     reader.onerror = reject;
     reader.readAsDataURL(file);
@@ -71,6 +75,7 @@ const ImageUploadForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
+    toast.success('image added');
     setImageUrl(URL.createObjectURL(file));
   };
 
@@ -82,9 +87,9 @@ const ImageUploadForm = () => {
     event.preventDefault();
     toast.success('image Submitted');
     setError('');
-
     if (!imageFile) {
       setError('Please select an image.');
+      toast.error('Please select an image.');
       return;
     }
 
@@ -132,53 +137,69 @@ const ImageUploadForm = () => {
     }
   };
 
-  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes
+  // Use useEffect to call handleTranslate when detectedText or targetLanguage changes.
   useEffect(() => {
     handleTranslate(detectedText, targetLanguage, setTranslatedText, setError);
   }, [detectedText, targetLanguage]);
 
   return (
-    <div className='form-container'>
-      <div className='logo'>Waiter.io</div>
-      <DarkMode />
+    <>
+      <div className='form-container'>
+        {/* BETA ICON  */}
+        <div className='beta'>beta</div>
+        {/* BETA ICON  */}
+        <img className='icon' src='favicon.ico'></img>
+        <div className='logo'>
+          <b>
+            W<span>a</span>iter.<span>io</span>
+          </b>
+        </div>
 
-      <img className='icon' src='favicon.ico'></img>
-      <form className='translator-form' onSubmit={handleSubmit}>
-        <input
-          type='file'
-          accept='image/*'
-          onChange={handleFileChange}
-          required
+        <form className='translator-form' onSubmit={handleSubmit}>
+          <button
+            className='neon-button'
+            onClick={() => document.getElementById('fileInput').click()}
+          >
+            <AddPhotoAlternateIcon />
+          </button>
+          <input
+            type='file'
+            id='fileInput'
+            name='uploadedFile'
+            accept='image/*'
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            required
+          />
+
+          <div className='neon-select-container'>
+            <select
+              className='neon-select'
+              value={targetLanguage}
+              onChange={handleLanguageChange}
+              required
+            >
+              {Object.entries(languageMap).map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button className='neon-button' type='submit'>
+            Submit
+          </button>
+        </form>
+        {imageUrl && (
+          <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
+        )}
+        <TranslationDisplay
+          {...{ translatedText, targetLanguage, detectedText }}
+          onLanguageChange={handleLanguageChange}
         />
-        <select
-          className='language-select'
-          value={targetLanguage}
-          onChange={handleLanguageChange}
-          required
-        >
-          <option value=''>Select a language</option>
-          {Object.entries(languageMap).map(([code, name]) => (
-            <option key={code} value={code}>
-              {name}
-            </option>
-          ))}
-        </select>
-        <button className='submit-button' type='submit'>
-          Submit
-        </button>
-      </form>
-      {imageUrl && (
-        <img className='uploaded-image' src={imageUrl} alt='Uploaded' />
-      )}
-      <TranslationDisplay
-        translatedText={translatedText}
-        targetLanguage={targetLanguage}
-        detectedText={detectedText}
-        onLanguageChange={handleLanguageChange}
-      />
-      <Toaster />
-      <Footer />
-    </div>
+        <Toaster />
+      </div>
+    </>
   );
 };
 

@@ -1,0 +1,7 @@
+.switch {
+  display: flex;
+  position: relative;
+  right: 34vw;
+  bottom: 13vh;
+  opacity: 90;
+}

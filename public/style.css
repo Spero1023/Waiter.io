@@ -1,45 +1,27 @@
+@import url(//fonts.googleapis.com/css?family=Caveat);
+body {
+  background-color: rgb(15, 15, 20);
+  height: 98vh;
+  overflow-x: hidden;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  overflow: auto;
+  width: 100%;
 }
 
 .translator-form {
   display: flex;
-  flex-direction: column;
+  position: relative;
+  bottom: 150px;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-input[type='file'],
-select,
-button {
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  margin-bottom: 50px;
   width: 100%;
-  max-width: 300px;
-}
-
-.language-select {
-  font-size: 14px;
-}
-
-.submit-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: #0056b3;
+  justify-content: center;
 }
 
 .translation-info {
@@ -51,53 +33,35 @@ button {
   display: inline-block;
   box-shadow: 0 0 10px rgb(0, 0, 0);
   width: 300px;
+  position: relative;
+  bottom: 140px;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
 
 .menu-content {
   padding-top: 20px;
+  position: relative;
+  bottom: 140px;
+  color: white;
+}
+
+.directions {
+  text-decoration: underline;
+  text-align: center;
+  text-transform: capitalize;
+  color: rgb(178, 178, 178);
+  font: 400 25px 'Caveat';
 }
 
 h3 {
-  text-decoration: underline;
-}
-/* 
-ol,
-ul {
-  list-style-type: none;
-} */
-
-.logo {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 10px;
-  font-size: 30px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   text-decoration: underline;
 }
 
 .icon {
   position: relative;
   width: 100px;
-  margin-top: 0px;
   align-content: center;
   padding-right: 40px;
 }
 
-.switch {
-  display: flex;
-  position: relative;
-  right: 34vw;
-  bottom: 5.5vh;
-}
-
-input::file-selector-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 6px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-input::file-selector-button:hover {
-  background-color: #0056b3;
-}
+/* -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); */

@@ -59,9 +59,15 @@ function TranslationDisplay({
           </div>
         ) : (
           <div className='menu-content'>
-            {menu !== ''
-              ? menu
-              : "Begin by uploading your menu & then choosing your desired language. Press 'Submit' to translate & reformat. "}
+            {menu !== '' ? (
+              menu
+            ) : (
+              <div className='directions'>
+                <div> Begin by uploading a picture of your menu</div>
+                <div> Choose your desired language</div>
+                <div> Hit submit & wait</div>
+              </div>
+            )}
           </div>
         )}
       </div>
