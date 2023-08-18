@@ -1,8 +1,7 @@
 import React from 'react';
 import RestaurantContainer from './resturantContainer';
 import { db } from '../firebase';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from "firebase/auth";
+import { getAuth } from '../firebase';
 
 const userPageComponent = () => {
 

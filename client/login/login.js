@@ -1,17 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { auth, provider, signOut } from '../firebase';
-
+import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
+import { addDoc, doc, getDocs, setDoc } from '@firebase/firestore';
+import { storage } from '../firebase';
 import './loginCss.css';
 
 function Login() {
   const [user] = useAuthState(auth);
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    auth.signInWithPopup(provider).catch((error) => alert(error.message));
+    const result = await auth.signInWithPopup(provider).catch((error) => alert(error.message));
+    const uid = result.user.uid;
+    const username = result.user.displayName;
+    
+    // Create a user document with the UID
+    const userRef = db.collection('users').doc(uid);
+    const userDoc = await getDocs(userRef);
+
+    if (!userDoc.exists()){
+      const imageFile = e.target.files[0];
+
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child('menuImages/' + imageFile.name);
+    }
   };
 
   return (
