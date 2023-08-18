@@ -21,33 +21,47 @@ function TranslationDisplay({
     handleSubmit(targetLanguage);
   }, [translatedText]);
 
-  const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
-  Return each section inside of a div. Language:`;
 
-  const handleSubmit = async (targetLanguage, translatedText) => {
-    const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
+  const prompt = `No extra commentary or pleasantries. 
+  Take the role of a waiter. Look and understand what the food is and then display the allergens that the dish contains. 
+  The main allergins are milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, and soybeans.
+  Take the following menu and categorize it by food/dish type.
+  Return the menu in a div with the catagories in a h3 and the foods in a ul with the allergens after. 
+  If a price is given for the item display that at the end next to the allergens. 
+  I want you to write EVERYTHING in this language:`;
 
-    try {
-      const response = await axios.post(
-        "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
-        {
-          prompt: newPrompt
-        },
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      );
-  
-      const reformattedMenu = response.data.message;
-      setMenu(parse(reformattedMenu));
-    } catch (error) {
-      console.error('Error', error);
-      console.error('Full Error Response:', error.response.data);
-      toast.error('An error occurred while reformatting. Please try again.');
+  const apiKey = 'MY_KEY';
+  const handleSubmit = async () => {
+    if (translatedText === '') {
+      return;
     }
-  };
+    setIsLoading(true)
+   try {
+    const response = await axios.post(
+      `https://api.openai.com/v1/engines/text-davinci-003/completions`,
+      {
+        prompt: `${prompt} ${targetLanguage} .'text:' ${translatedText} `,
+        max_tokens: 700,
+        temperature: 1,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+    const generatedText = response.data.choices[0].text;
+    setMenu(parse(generatedText));
+    setIsLoading(false);
+    toast.success('Menu Formatted');
+  } catch(error){
+      console.error('Error calling /api/reformat-menu', error);
+      setIsLoading(false);
+      toast.error('An error occurred. Please try again.');
+  }
+  } 
+
   
 
   return (
