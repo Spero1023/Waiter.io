@@ -18,7 +18,7 @@ function TranslationDisplay({
   }, [translatedText, targetLanguage, onLanguageChange]);
 
   useEffect(() => {
-    handleSubmit(targetLanguage, translatedText);
+    handleSubmit(targetLanguage);
   }, [translatedText]);
 
   const prompt = `No extra commentary or pleasantries. Take the following menu and categorize it by food/dish type, include descriptions of allergens, and offer brief descriptions.
@@ -26,7 +26,7 @@ function TranslationDisplay({
 
   const handleSubmit = async (targetLanguage, translatedText) => {
     const newPrompt = `${prompt} ${targetLanguage}, text: ${translatedText}`;
-  //for some reason this is using an old openai key
+
     try {
       const response = await axios.post(
         "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
