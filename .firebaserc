@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "waiter-io-395214"
-  }
+    "default": "waiter-io-395214",
+    "deployment": "waiter-io-395214"
+  },
+  "targets": {},
+  "etags": {}
 }
