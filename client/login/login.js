@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { addDoc, doc, getDocs, setDoc } from '@firebase/firestore';
-import { storage } from '../firebase';
+import { doc, getDoc, setDoc } from '@firebase/firestore';
+
 import './loginCss.css';
 
 function Login() {
@@ -11,21 +11,27 @@ function Login() {
 
   const signIn = async (e) => {
     e.preventDefault();
-    const result = await auth.signInWithPopup(provider).catch((error) => alert(error.message));
-    const uid = result.user.uid;
-    const username = result.user.displayName;
-    
-    // Create a user document with the UID
-    const userRef = db.collection('users').doc(uid);
-    const userDoc = await getDocs(userRef);
-
-    if (!userDoc.exists()){
-      const imageFile = e.target.files[0];
-
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child('menuImages/' + imageFile.name);
+    try {
+      const result = await auth.signInWithPopup(provider);
+      const uid = result.user.uid;
+      const username = result.user.displayName;
+  
+      // Check if a user document with that UID exists
+      const userRef = doc(db, 'users', uid);
+      const userDoc = await getDoc(userRef);
+  
+      if (!userDoc.exists()) {
+        // Save the user's information in Firestore
+        await setDoc(userRef, {
+          outputs: {
+            username: username,
+          },
+        });
+      }
+    } catch (error) {
+      alert(error.message);
     }
-  };
+  };  
 
   return (
     <LoginContainer className='Container '>
