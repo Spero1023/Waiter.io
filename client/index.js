@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import userPageComponent from './features/userPage';
+import UserPageComponent from './features/userPage';
 import Login from './login/login';
 import Footer from './features/footer/footer';
 import ImageUploadForm from './ImgOcrTranslate';
@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Login />
-      <ImageUploadForm />
+      <UserPageComponent />
       <Footer />
     </Router>
   </React.StrictMode>

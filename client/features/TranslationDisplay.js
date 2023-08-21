@@ -74,6 +74,7 @@ function TranslationDisplay({
     if (translatedText === null || translatedText === '') {
       return;
     }
+    setIsLoading(true)
     try {
       const response = await axios.post(
         "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
@@ -88,10 +89,12 @@ function TranslationDisplay({
       );
   
       const reformattedMenu = response.data.message;
+      setIsLoading(false)
       setMenu(parse(reformattedMenu));
     } catch (error) {
       console.error('Error', error);
       console.error('Full Error Response:', error.response.data);
+      setIsLoading(false)
       toast.error('An error occurred while reformatting. Please try again.');
     }
   };

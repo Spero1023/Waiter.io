@@ -2,9 +2,9 @@ import React, { useState, useEffect }from 'react';
 import { db, getAuth } from '../firebase';
 import { doc, getDoc } from '@firebase/firestore';
 import RestaurantContainer from './resturantContainer';
-import { useEffect, useState } from 'react';
 
-const userPageComponent = () => {
+
+const UserPageComponent = () => {
 
   //Menus are stored as an array with an object inside
   const [restaurants, setRestaurants] = useState([])
@@ -77,4 +77,4 @@ const userPageComponent = () => {
 );
         }
 
-export default userPageComponent;
+export default UserPageComponent;
