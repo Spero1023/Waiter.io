@@ -30,7 +30,7 @@ function TranslationDisplay({
   If a price is given for the item display that at the end next to the allergens. 
   I want you to write EVERYTHING in this language:`;
 
-  const apiKey = 'MY_KEY';
+  const apiKey = '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';
   const handleSubmit = async () => {
     if (translatedText === '') {
       return;
@@ -38,7 +38,7 @@ function TranslationDisplay({
     setIsLoading(true)
    try {
     const response = await axios.post(
-      `https://api.openai.com/v1/engines/text-davinci-003/completions`,
+      `https://api.openai.com/v1/chat/completions`,
       {
         prompt: `${prompt} ${targetLanguage} .'text:' ${translatedText} `,
         max_tokens: 700,
