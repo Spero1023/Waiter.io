@@ -1,18 +1,37 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { auth, provider, signOut } from '../firebase';
-
+import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, getDoc, setDoc } from '@firebase/firestore';
 
 import './loginCss.css';
 
 function Login() {
   const [user] = useAuthState(auth);
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    auth.signInWithPopup(provider).catch((error) => alert(error.message));
-  };
+    try {
+      const result = await auth.signInWithPopup(provider);
+      const uid = result.user.uid;
+      const username = result.user.displayName;
+  
+      // Check if a user document with that UID exists
+      const userRef = doc(db, 'users', uid);
+      const userDoc = await getDoc(userRef);
+  
+      if (!userDoc.exists()) {
+        // Save the user's information in Firestore
+        await setDoc(userRef, {
+          outputs: {
+            username: username,
+          },
+        });
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };  
 
   return (
     <LoginContainer className='Container '>
