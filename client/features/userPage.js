@@ -1,7 +1,6 @@
 import React, { useState, useEffect }from 'react';
 import { db } from '../firebase';
 import { doc, getDoc } from '@firebase/firestore';
-import RestaurantContainer from './resturantContainer';
 import { getAuth } from 'firebase/auth';
 
 const UserPageComponent = () => {
