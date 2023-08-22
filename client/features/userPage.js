@@ -1,16 +1,26 @@
 import React, { useState, useEffect }from 'react';
-import { db, getAuth } from '../firebase';
+import { db } from '../firebase';
 import { doc, getDoc } from '@firebase/firestore';
 import RestaurantContainer from './resturantContainer';
-
+import { getAuth } from 'firebase/auth';
 
 const UserPageComponent = () => {
 
   //Menus are stored as an array with an object inside
+  //User info is set as state
   const [restaurants, setRestaurants] = useState([])
-    //User info state
-    const auth = getAuth(app);
-    const userID = auth.currentUser;
+  const [user, setUser] = useState(null);
+
+  //User info from auth
+  const auth = getAuth();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+        setUser(currentUser);
+    });
+    // This will unsubscribe the listener when the component unmounts
+    return () => unsubscribe();
+}, []);
 
   //Fetch menu on user state change
   useEffect(() =>{

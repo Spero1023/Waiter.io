@@ -12,6 +12,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Login />
+      <UserPageComponent />
       <ImageUploadForm />
       <Footer />
     </Router>

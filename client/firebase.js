@@ -1,8 +1,7 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { getStorage } from '@firebase/storage';
+import 'firebase/compat/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1xa0wxt8Soq2AQIRU47yjJFktlvOAgXQ",
@@ -14,12 +13,10 @@ const firebaseConfig = {
   measurementId: "G-2852GR17V5"
 };
 
-// Initialize Cloud Storage and get a reference to the service
 const app = firebase.initializeApp(firebaseConfig);
-const storage = getStorage(app);
-
-const db = app.firestore();
-const auth = firebase.auth();
+const db = firebase.firestore(app);
+const auth = firebase.auth(app);
+const storage = firebase.storage(app);
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export { auth, provider, db , storage };
+export { auth, provider, db, storage };
