@@ -41,6 +41,7 @@ function TranslationDisplay({
   const prompt = `No extra commentary or pleasantries. 
   Take the role of a waiter. Look and understand what the food is and then display the allergens that the dish contains. 
   The main allergins are milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, and soybeans.
+  So for example if you see Shrimp I want you to output "Shrimp- Allergens: Shellfish"
   Take the following menu and categorize it by food/dish type.
   Return the menu in a div with the catagories in a h3 and the foods in a ul with the allergens after. 
   If a price is given for the item display that at the end next to the allergens. 
@@ -73,6 +74,7 @@ function TranslationDisplay({
     if (translatedText === null || translatedText === '') {
       return;
     }
+    setIsLoading(true)
     try {
       const response = await axios.post(
         "https://us-central1-waiter-io-395214.cloudfunctions.net/openai/reformat-menu",
@@ -87,10 +89,12 @@ function TranslationDisplay({
       );
   
       const reformattedMenu = response.data.message;
+      setIsLoading(false)
       setMenu(parse(reformattedMenu));
     } catch (error) {
       console.error('Error', error);
       console.error('Full Error Response:', error.response.data);
+      setIsLoading(false)
       toast.error('An error occurred while reformatting. Please try again.');
     }
   };
@@ -168,6 +172,6 @@ function TranslationDisplay({
       <Toaster />
     </div>
   );
-}
+              }
 
 export default TranslationDisplay;

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
+import { Link } from 'react-router-dom';
 
 import './loginCss.css';
 
@@ -47,6 +48,7 @@ function Login() {
             >
               Logout
             </button>
+            <Link to='/user'>USER</Link>
           </div>
         ) : (
           <div>
