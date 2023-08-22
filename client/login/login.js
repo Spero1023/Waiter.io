@@ -39,7 +39,11 @@ function Login() {
       <LoginInnerContainer>
         {user ? (
           <div>
+            <div>
+            <Link to='/user'>
             <img src={user.photoURL} alt='Profile' className='pfp' />
+            </Link>
+            </div>
             <button
               onClick={() => auth.signOut()}
               alt={user?.displayName}
@@ -48,7 +52,6 @@ function Login() {
             >
               Logout
             </button>
-            <Link to='/user'>USER</Link>
           </div>
         ) : (
           <div>

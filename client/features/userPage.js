@@ -1,8 +1,14 @@
 import React, { useState, useEffect }from 'react';
 import { db } from '../firebase';
 import { doc, getDoc } from '@firebase/firestore';
-import { getAuth } from 'firebase/auth';
 
+import parse from 'html-react-parser';
+
+import { getAuth } from 'firebase/auth';
+import { Link } from 'react-router-dom';
+import '../translatorCss/logo.css';
+import './footer/beta.css';
+import './user.css'
 const UserPageComponent = () => {
 
   //Menus are stored as an array with an object inside
@@ -64,24 +70,42 @@ const UserPageComponent = () => {
 
   //Ugly but gets the job done
   return (
-    <div className='Resturant-menus'>
-        {restaurants && Object.keys(restaurants).length > 0 ? (
-            <div className='container'>
-                {Object.keys(restaurants).map(date => (
-                    <div key={date}>
-                        <h3>{date}</h3>
+<>
+<div className='form-container'>
+        {/* BETA ICON  */}
+        <Link to='/'>
+        <div className='beta'>home</div>
+        </Link>
+        {/* BETA ICON  */}
+        <img className='icon' src='favicon.ico'></img>
+        <div className='logo'>
+          <b>
+            W<span>a</span>iter.<span>io</span>
+          </b>
+        </div>
+        
+        <div className='Restaurant-menus-container'>
+    {restaurants && Object.keys(restaurants).length > 0 ? (
+        <div className='Restaurant-menus'>
+            {Object.keys(restaurants).map(date => (
+                <div key={date}>
+                    <h3>{date}</h3>
+                    <div className='Menu-list'>
                         {restaurants[date].map((restaurant, index) => (
-                            <div key={index}>
+                            <div key={index} className='Menu-item'>
                                 {restaurant.menuHtml}
                             </div>
                         ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
+        </div>
         ) : (
             <div className='empty-message'>No restaurants available.</div>
         )}
     </div>
+    </div>
+    </>
 );
         }
 

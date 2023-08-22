@@ -1,7 +1,7 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import { languageMap, languageReducer } from './languageReducer';
-
+import { Link } from 'react-router-dom';
 import TranslationDisplay from './features/TranslationDisplay';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
