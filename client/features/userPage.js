@@ -1,7 +1,9 @@
 import React, { useState, useEffect }from 'react';
 import { db } from '../firebase';
 import { doc, getDoc } from '@firebase/firestore';
+
 import parse from 'html-react-parser';
+
 import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import '../translatorCss/logo.css';

@@ -14,7 +14,7 @@ function TranslationDisplay({
   const [menu, setMenu] = useState('');
   const [text, setText] = useState(translatedText);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [html, setHtml] = useState()
 
   //Spam protection
   const countRef = useRef(0);
@@ -89,6 +89,7 @@ function TranslationDisplay({
       );
   
       const reformattedMenu = response.data.message;
+      setHtml(reformattedMenu)
       setIsLoading(false)
       setMenu(parse(reformattedMenu));
     } catch (error) {
@@ -122,7 +123,7 @@ function TranslationDisplay({
   
       // Add the new menu to the list
       const newMenu = {
-        menuHtml: text,
+        menuHtml: html,
         time: Timestamp.now()
       };
       currentMenus.push(newMenu);
