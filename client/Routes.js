@@ -8,7 +8,7 @@ import UserPageComponent from './features/userPage';
 const App = () => {
   return (
     <Routes>
-      <Route path='/main' element={<ImageUploadForm />} />
+      <Route path='/' element={<ImageUploadForm />} />
       <Route path='/user' element={<UserPageComponent />} />
     </Routes>
   );

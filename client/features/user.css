@@ -1,0 +1,24 @@
+.home{
+    position: relative;
+    bottom: 300px;
+    right: 100px;
+}
+.Restaurant-menus-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Restaurant-menus {
+    /* Remove the width property to allow the container to expand */
+    display: flex;
+    flex-direction: row;
+}
+
+.Menu-list {
+    display: flex;
+}
+
+.Menu-item {
+width: 300px;
+    margin-right: 10px;
+}
