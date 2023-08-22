@@ -93,7 +93,7 @@ const UserPageComponent = () => {
                     <div className='Menu-list'>
                         {restaurants[date].map((restaurant, index) => (
                             <div key={index} className='Menu-item'>
-                                {restaurant.menuHtml}
+                                {parse(restaurant.menuHtml)}
                             </div>
                         ))}
                     </div>

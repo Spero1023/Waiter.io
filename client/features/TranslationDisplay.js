@@ -5,6 +5,7 @@ const parse = require('html-react-parser');
 import Loader from './loader/loader';
 import { auth, db } from '../firebase';
 import { Timestamp, doc, setDoc, getDoc } from '@firebase/firestore';
+import '../translatorCss/NeonButton.css';
 
 function TranslationDisplay({
   translatedText,
@@ -154,7 +155,7 @@ function TranslationDisplay({
               {menu !== '' ? (
                 <>
                 {menu}
-                <button onClick={saveMenuToFirestore}>Save to history</button>
+                <button  className='neon-button' onClick={saveMenuToFirestore}>Save to history</button>
                 </>
               ) : (
                 <div className='directions'>
