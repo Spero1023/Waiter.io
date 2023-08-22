@@ -72,10 +72,9 @@ const UserPageComponent = () => {
                     <div key={date}>
                         <h3>{date}</h3>
                         {restaurants[date].map((restaurant, index) => (
-                            <RestaurantContainer
-                                key={index}
-                                description={restaurant.menuHtml}
-                            />
+                            <div key={index}>
+                                {restaurant.menuHtml}
+                            </div>
                         ))}
                     </div>
                 ))}
