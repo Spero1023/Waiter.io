@@ -2,12 +2,12 @@ Website link - https://waiter-io-395214.web.app/0
 
 Technologies Used
 -
-Google OCR
-Google Vision Cloud Traslate
-Open AI
-Firebase
-Cloud Firestore
-Material UI
+Google OCR,
+Google Vision Cloud Traslate,
+Open AI,
+Firebase,
+Cloud Firestore,
+Material UI,
 Hot Toast
 -
 
