@@ -1,4 +1,4 @@
-Website link - https://waiter-io-395214.web.app/0
+Website link - https://waiter-io-395214.web.app/
 
 Technologies Used
 -
