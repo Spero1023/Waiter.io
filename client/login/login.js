@@ -4,7 +4,7 @@ import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { Link } from 'react-router-dom';
-
+import Tokens from '../features/tokens/tokens';
 import './loginCss.css';
 
 function Login() {
@@ -16,11 +16,11 @@ function Login() {
       const result = await auth.signInWithPopup(provider);
       const uid = result.user.uid;
       const username = result.user.displayName;
-  
+
       // Check if a user document with that UID exists
       const userRef = doc(db, 'users', uid);
       const userDoc = await getDoc(userRef);
-  
+
       if (!userDoc.exists()) {
         // Save the user's information in Firestore
         await setDoc(userRef, {
@@ -32,7 +32,7 @@ function Login() {
     } catch (error) {
       alert(error.message);
     }
-  };  
+  };
 
   return (
     <LoginContainer className='Container '>
@@ -40,9 +40,9 @@ function Login() {
         {user ? (
           <div>
             <div>
-            <Link to='/user'>
-            <img src={user.photoURL} alt='Profile' className='pfp' />
-            </Link>
+              <Link to='/user'>
+                <img src={user.photoURL} alt='Profile' className='pfp' />
+              </Link>
             </div>
             <button
               onClick={() => auth.signOut()}
