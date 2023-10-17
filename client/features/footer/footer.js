@@ -1,5 +1,6 @@
 import React from 'react';
 import './footer.css';
+import './beta.css'; //BETA ICON
 
 function Footer() {
   return (
@@ -11,6 +12,9 @@ function Footer() {
         <a href='https://github.com/wchan6'>- William Chan</a>
         <a href='https://github.com/mjgilfus'>- Matthew Gilfus</a>
       </div>
+      {/* BETA ICON  */}
+      <div className='beta'>beta</div>
+      {/* BETA ICON  */}
     </footer>
   );
 }

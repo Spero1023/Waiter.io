@@ -4,7 +4,7 @@ import { auth, provider, db } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, getDoc, setDoc } from '@firebase/firestore';
 import { Link } from 'react-router-dom';
-import Tokens from '../features/tokens/tokens';
+
 import './loginCss.css';
 
 function Login() {

@@ -6,7 +6,9 @@ function Tokens() {
   return (
     <div>
       <div className='token'>
-        <MenuBookTwoToneIcon /> 20
+        <button className='tokenBtn'>
+          <MenuBookTwoToneIcon /> 20
+        </button>
       </div>
     </div>
   );

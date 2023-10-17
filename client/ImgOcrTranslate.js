@@ -4,11 +4,10 @@ import { languageMap, languageReducer } from './languageReducer';
 import { Link } from 'react-router-dom';
 import TranslationDisplay from './features/TranslationDisplay';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
+import Tokens from './features/tokens/tokens';
 import './translatorCss/NeonButton.css';
 import './translatorCss/languageSelect.css';
 import './translatorCss/logo.css';
-import './features/footer/beta.css'; //BETA ICON
 
 const convertImageToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -144,10 +143,10 @@ const ImageUploadForm = () => {
 
   return (
     <>
+      <div>
+        <Tokens />
+      </div>
       <div className='form-container'>
-        {/* BETA ICON  */}
-        <div className='beta'>beta</div>
-        {/* BETA ICON  */}
         <img className='icon' src='favicon.ico'></img>
         <div className='logo'>
           <b>
