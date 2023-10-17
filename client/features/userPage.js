@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 
 import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import Tokens from './tokens/tokens';
 import '../translatorCss/logo.css';
 import './footer/beta.css';
 import './user.css';
@@ -99,16 +100,18 @@ const UserPageComponent = () => {
   return (
     <>
       <div className='form-container'>
-        {/* BETA ICON  */}
         <Link to='/'>
           <div className='beta'>home</div>
         </Link>
-        {/* BETA ICON  */}
         <img className='icon' src='favicon.ico'></img>
         <div className='logo'>
           <b>
             W<span>a</span>iter.<span>io</span>
           </b>
+        </div>
+        <div className='tokenUser'>
+          <div className='tokenAvailable'>Tokens Available</div>
+          <Tokens />
         </div>
         <div className='Restaurant-menus-container'>
           {restaurants && Object.keys(restaurants).length > 0 ? (
