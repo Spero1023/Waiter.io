@@ -111,7 +111,9 @@ const UserPageComponent = () => {
         </div>
         <div className='tokenUser'>
           <div className='tokenAvailable'>Tokens Available</div>
-          <Tokens />
+          <div className='tokenCount'>
+            <Tokens />
+          </div>
         </div>
         <div className='Restaurant-menus-container'>
           {restaurants && Object.keys(restaurants).length > 0 ? (
