@@ -24,9 +24,11 @@
 }
 
 .tokenUser {
-  width: 120px;
-  position: absolute;
   display: flex;
   text-align: center;
   top: 200px;
+}
+
+.tokenCount {
+  left: 500px;
 }

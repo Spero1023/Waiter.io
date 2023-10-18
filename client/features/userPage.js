@@ -109,12 +109,14 @@ const UserPageComponent = () => {
             W<span>a</span>iter.<span>io</span>
           </b>
         </div>
+
         <div className='tokenUser'>
           <div className='tokenAvailable'>Tokens Available</div>
           <div className='tokenCount'>
             <Tokens />
           </div>
         </div>
+
         <div className='Restaurant-menus-container'>
           {restaurants && Object.keys(restaurants).length > 0 ? (
             <div className='Restaurant-menus'>
