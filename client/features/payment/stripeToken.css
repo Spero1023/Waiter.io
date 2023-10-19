@@ -1,0 +1,11 @@
+.paymentOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 20vh;
+}
+
+.paymentOptions div {
+  margin: 10px;
+}
