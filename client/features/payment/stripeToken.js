@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './stripeToken.css';
 
+const handleQuantityChange = (productId, newQuantity) => {
+  if (newQuantity >= 1) {
+    const updatedCart = { ...grabCartFromStorage };
+    updatedCart[productId] = newQuantity;
+    window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setShowItem(!showItem);
+  }
+};
+
 function Stripe() {
   return (
     <div>
@@ -15,10 +24,12 @@ function Stripe() {
         </b>
       </div>
       <div className='paymentOptions'>
-        <div className='optionOne'>ADD PAYMENT OPTION 1</div>
-        <div className='optionTwo'>ADD PAYMENT OPTION 2</div>
-        <div className='optionThree'>ADD PAYMENT OPTION 3</div>
-        <div className='optionCustom'>ADD PAYMENT OPTION CUSTOM</div>
+        <div className='optionOne'>5 Tokens - $3</div>
+        <div className='optionTwo'>10 Tokens - $5</div>
+        <div className='optionThree'>20 Tokens - $10</div>
+        <p>
+          quanity: <input className='customInput' type='number' /> $
+        </p>
       </div>
     </div>
   );
