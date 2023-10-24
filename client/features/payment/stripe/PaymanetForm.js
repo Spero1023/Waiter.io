@@ -84,6 +84,7 @@ export default function PaymentForm() {
       ) : (
         <div>
           <Toaster />
+          <h2>Thank You!</h2>
           <h3>redirecting now</h3>
           {localStorage.removeItem('cart')}
         </div>
