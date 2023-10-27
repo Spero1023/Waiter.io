@@ -9,3 +9,7 @@
 .paymentOptions div {
   margin: 10px;
 }
+
+.customInput {
+  width: 50px;
+}

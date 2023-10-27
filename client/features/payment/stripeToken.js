@@ -12,6 +12,18 @@ const handleQuantityChange = (productId, newQuantity) => {
 };
 
 function Stripe() {
+  const [quantity, setQuantity] = useState(0);
+
+  const handleQuantityChange = (event) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    setQuantity(newQuantity);
+  };
+
+  const getTotalAmount = () => {
+    const pricePerUnit = 0.5;
+    return quantity * pricePerUnit;
+  };
+
   return (
     <div>
       <Link to='/'>
@@ -24,11 +36,18 @@ function Stripe() {
         </b>
       </div>
       <div className='paymentOptions'>
-        <div className='optionOne'>5 Tokens - $3</div>
+        <div className='optionOne'>5 Tokens - $2.5</div>
         <div className='optionTwo'>10 Tokens - $5</div>
         <div className='optionThree'>20 Tokens - $10</div>
         <p>
-          quanity: <input className='customInput' type='number' /> $
+          quanity:{' '}
+          <input
+            className='customInput'
+            type='number'
+            value={quantity}
+            onChange={handleQuantityChange}
+          />
+          ${getTotalAmount()}
         </p>
       </div>
     </div>
