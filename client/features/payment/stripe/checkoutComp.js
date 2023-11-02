@@ -14,7 +14,7 @@ const CheckoutPage = () => {
       ) : (
         <>
           <button className='CheckOutBtn' onClick={() => setShowItem(true)}>
-            Checkout!
+            Checkout
           </button>
         </>
       )}
