@@ -36,7 +36,7 @@ const handleTranslate = async (
 
   try {
     const translateResponse = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=AIzaSyAxaM9gEgI2GoyNQ18am08IvV8E2puwQnI`,
+      'https://translation.googleapis.com/language/translate/v2?key=AIzaSyA_aH4o0X3q5m7YeanCYIBEEj8aW2Z-wcc',
       {
         method: 'POST',
         headers: {
@@ -112,7 +112,7 @@ const ImageUploadForm = () => {
 
     try {
       const response = await fetch(
-        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAxaM9gEgI2GoyNQ18am08IvV8E2puwQnI',
+        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA_aH4o0X3q5m7YeanCYIBEEj8aW2Z-wcc',
         {
           method: 'POST',
           headers: {
